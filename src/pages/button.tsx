@@ -33,10 +33,6 @@ const App: React.FC = () => {
     }      
   };
   
-   // {}符号无法用转译符 用变量  myPoweroffOutlined 代替
-  const myPoweroffOutlined = '{<PoweroffOutlined />}';
- 
-
   return (  
     <ConfigProvider theme={theme}>  
       <Space>                                   
@@ -118,8 +114,8 @@ const App: React.FC = () => {
                 <Flex gap="small" wrap="wrap" >            
                   {isVisible_B && (                                           
                         <pre style={{border: '1px solid rgba(0, 0, 0, 0.08)', backgroundColor: 'rgba(100, 30, 30, 0.04)', padding: '16px', width: '100%', margin: '24px 0 0  0'}}>                        
-                          <span>&lt;Button type="primary" icon={myPoweroffOutlined}&gt;图标按钮 &lt;/Button&gt;</span><br></br>
-                          <span>&lt;Button type="primary" icon={myPoweroffOutlined}&gt; &lt;/Button&gt;</span><br></br>  
+                          <span>&lt;Button type="primary" icon={'{<PoweroffOutlined />}'}&gt;图标按钮 &lt;/Button&gt;</span><br></br>
+                          <span>&lt;Button type="primary" icon={'{<PoweroffOutlined />}'}&gt; &lt;/Button&gt;</span><br></br>  
                           <span>&lt;Button type="primary" &gt;loading &lt;/Button&gt;</span><br></br>                                                   
                         </pre>                      
                   )}           

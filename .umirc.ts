@@ -5,7 +5,7 @@ export default defineConfig({
 
     { path: "/", component: "index", name: "home" },
     
-    { path: "/font", component: "font", name: "Typography 文字" },
+    { path: "/font", component: "font", name: "Typography 文字版式" },
 
     { path: "/button", component: "button", name: "Button 按钮" },
 
