@@ -63,14 +63,15 @@ const App: React.FC = () => {
                 <div style={{margin:'24px 0 0  0'}}>
                   <Button onClick={() => toggleDiv('isVisible')}>显示代码</Button> 
                   <Flex gap="small" wrap="wrap" >            
-                    {isVisible && (                     
-                          <pre style={{border: '1px solid rgba(0, 0, 0, 0.08)', backgroundColor: 'rgba(100, 30, 30, 0.04)', padding: '16px', width: '100%' }}>
-                            <span>&lt;Title &gt; 一级标题 &lt;/Text&gt;</span><br></br>                           
-                            <span>&lt;Title lever={'{2}'}&gt; 二级标题 &lt;/Text&gt;</span><br></br> 
-                            <span>&lt;Title lever={'{3}'}&gt; 三级标题 &lt;/Text&gt;</span><br></br>
-                            <span>&lt;Title lever={'{4}'}&gt; 四级标题 &lt;/Text&gt;</span><br></br>
-                            <span>&lt;Title lever={'{5}'}&gt; 五级标题 &lt;/Text&gt;</span><br></br>                           
-                          </pre>                      
+                    {isVisible && (
+                      
+                      <pre style={{border: '1px solid rgba(0, 0, 0, 0.08)', backgroundColor: 'rgba(100, 30, 30, 0.04)', padding: '16px', width: '100%' }}>
+                        <span>&lt;Title &gt; 一级标题 &lt;/Text&gt;</span><br></br>                           
+                        <span>&lt;Title lever={'{2}'}&gt; 二级标题 &lt;/Text&gt;</span><br></br> 
+                        <span>&lt;Title lever={'{3}'}&gt; 三级标题 &lt;/Text&gt;</span><br></br>
+                        <span>&lt;Title lever={'{4}'}&gt; 四级标题 &lt;/Text&gt;</span><br></br>
+                        <span>&lt;Title lever={'{5}'}&gt; 五级标题 &lt;/Text&gt;</span><br></br>                           
+                      </pre>                      
                     )}           
                   </Flex>               
                 </div>                         
