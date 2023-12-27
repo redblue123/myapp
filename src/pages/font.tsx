@@ -36,8 +36,8 @@ const App: React.FC = () => {
 
   return (  
     <ConfigProvider theme={theme}>  
-      <Space>                                   
-          <div >  
+      <Space>
+        <Flex gap="small" vertical>
             <h1 className={styles.title}>Font 字体</h1>      
             <h2>简述</h2>  
             <p>文本的字体、字号、颜色、行距等视觉属性进行标准化的规定和统一，以确保文本在不同平台和设备上呈现的一致性和易读性。</p>           
@@ -64,22 +64,17 @@ const App: React.FC = () => {
                   <Button onClick={() => toggleDiv('isVisible')}>显示代码</Button> 
                   <Flex gap="small" wrap="wrap" >            
                     {isVisible && (
-                      
-                      <pre style={{border: '1px solid rgba(0, 0, 0, 0.08)', backgroundColor: 'rgba(100, 30, 30, 0.04)', padding: '16px', width: '100%' }}>
-                        <span>&lt;Title &gt; 一级标题 &lt;/Text&gt;</span><br></br>                           
-                        <span>&lt;Title lever={'{2}'}&gt; 二级标题 &lt;/Text&gt;</span><br></br> 
-                        <span>&lt;Title lever={'{3}'}&gt; 三级标题 &lt;/Text&gt;</span><br></br>
-                        <span>&lt;Title lever={'{4}'}&gt; 四级标题 &lt;/Text&gt;</span><br></br>
-                        <span>&lt;Title lever={'{5}'}&gt; 五级标题 &lt;/Text&gt;</span><br></br>                           
-                      </pre>                      
-                    )}           
+                      <Paragraph copyable style={{whiteSpace: 'pre-wrap', border: '1px solid rgba(0, 0, 0, 0.08)', backgroundColor: 'rgba(100, 30, 30, 0.04)', padding: '16px', width: '100%', margin: '24px 0 0  0'}}>  
+                        {'<Title> 一级标题</Title>\n<Title level={2}> 二级标题</Title>\n<Title level={3}> 三级标题</Title>\n<Title level={4}> 四级标题</Title>\n<Title level={5}> 五级标题</Title>'}           
+                      </Paragraph>                                             
+                          )}           
                   </Flex>               
                 </div>                         
               </div>
             </Flex>
             <h3>正文</h3> 
             <Flex gap="small" vertical >
-              <div style={{border: '1px solid rgba(0, 0, 0, 0.08)', padding: '32px'}}>
+      
                 <Flex gap="small" vertical> 
                 <Text>中金北斗(默认文字)</Text>
                 <Text type="secondary">中金北斗(辅助文字)</Text>
@@ -104,30 +99,17 @@ const App: React.FC = () => {
                   <Button onClick={() => toggleDiv('isVisible_A')}>显示代码</Button>
                   <Flex gap="small" wrap="wrap" >            
                   {isVisible_A && (                                           
-                        <pre style={{border: '1px solid rgba(0, 0, 0, 0.08)', backgroundColor: 'rgba(100, 30, 30, 0.04)', padding: '16px', width: '100%', margin: '24px 0 0  0'}}>
-                          <span>&lt;Title &gt; 中金北斗(辅助文字) &lt;/Text&gt;</span><br></br>
-                          <span >&lt;Title type="secondary" &gt; 中金北斗(辅助文字) &lt;/Text&gt;</span><br></br>
-                          <span >&lt;Title type="success" &gt; 中金北斗(成功字体) &lt;/Text&gt;</span><br></br>
-                          <span >&lt;Title type="warning" &gt; 中金北斗(警告字体) &lt;/Text&gt;</span><br></br>
-                          <span >&lt;Title type="danger" &gt; 中金北斗(危险字体) &lt;/Text&gt;</span><br></br>
-                          <span >&lt;Title disabled &gt; 中金北斗(禁用字体) &lt;/Text&gt;</span><br></br>                          
-                          <span >&lt;Title mark &gt; 中金北斗(标记字体) &lt;/Text&gt;</span><br></br>
-                          <span >&lt;Title code &gt; 中金北斗(代码字体) &lt;/Text&gt;</span><br></br>
-                          <span >&lt;Title keyboard &gt; 中金北斗(键盘字体) &lt;/Text&gt;</span><br></br>
-                          <span >&lt;Title underline &gt; 中金北斗(下划字体) &lt;/Text&gt;</span><br></br>
-                          <span >&lt;Title delete &gt; 中金北斗(删除字体) &lt;/Text&gt;</span><br></br>
-                          <span >&lt;Title strong &gt; 中金北斗(加粗字体) &lt;/Text&gt;</span><br></br>
-                          <span >&lt;Title italic &gt; 中金北斗(斜体字) &lt;/Text&gt;</span><br></br>
-                          <span >&lt;Link href="https://www.cicc.com/" target="_blank" &gt; 中金北斗(文字链) &lt;/Link&gt;</span><br></br>
-                        
-                        </pre>                      
+                    <Paragraph copyable style={{whiteSpace: 'pre-wrap', border: '1px solid rgba(0, 0, 0, 0.08)', backgroundColor: 'rgba(100, 30, 30, 0.04)', padding: '16px', width: '100%', margin: '24px 0 0  0'}}>  
+                      {'<Text>中金北斗(默认文字)</Text>\n<Text type="secondary">中金北斗(辅助文字)</Text>\n<Text type="success">中金北斗(成功字体)</Text>\n<Text type="warning">中金北斗(警告字体)</Text>\n<Text type="danger">中金北斗(危险字体)</Text>\n<Text disabled>中金北斗(禁用字体)</Text>\n<Text mark>中金北斗(标记字体)</Text>\n<Text code>中金北斗(代码字体)</Text>\n<Text keyboard>中金北斗(键盘字体)</Text>\n<Text underline>中金北斗(下划字体)</Text>\n<Text delete>中金北斗(删除字体)</Text>\n<Text strong>中金北斗(加粗字体)</Text>\n<Text italic>中金北斗(斜体字)</Text>\n<Link href="https://www.cicc.com/" target="_blank">中金北斗 (文字链)</Link>'}           
+                    </Paragraph>                      
                   )}           
                 </Flex>              
                 </div>                         
-              </div>
+
             </Flex>            
-                                      
-          </div>                             
+        </Flex>                                   
+            
+                                                                                  
       </Space>  
     </ConfigProvider>  
   );  
