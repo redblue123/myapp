@@ -1,5 +1,5 @@
 
-import styles from './button.less';  
+import styles from '../layouts/index.less';  
 import { Button, Flex, ConfigProvider, Space, Typography } from 'antd';  
 import { PoweroffOutlined } from '@ant-design/icons';
 import React, { useState } from 'react';
@@ -52,7 +52,7 @@ const App: React.FC = () => {
             <h2>样式展示</h2>  
             <h3>标题级别</h3> 
             <Flex gap="small" vertical >
-              <div style={{border: '1px solid rgba(0, 0, 0, 0.08)', padding: '32px'}}>
+              <div className={styles.flexborder}>
                 <Flex gap="small" vertical> 
                   <Title> 一级标题</Title>
                   <Title level={2}> 二级标题</Title>
@@ -64,7 +64,7 @@ const App: React.FC = () => {
                   <Button onClick={() => toggleDiv('isVisible')}>显示代码</Button> 
                   <Flex gap="small" wrap="wrap" >            
                     {isVisible && (
-                      <Paragraph copyable style={{whiteSpace: 'pre-wrap', border: '1px solid rgba(0, 0, 0, 0.08)', backgroundColor: 'rgba(100, 30, 30, 0.04)', padding: '16px', width: '100%', margin: '24px 0 0  0'}}>  
+                      <Paragraph copyable className={styles.codeParagraph}>  
                         {'<Title> 一级标题</Title>\n<Title level={2}> 二级标题</Title>\n<Title level={3}> 三级标题</Title>\n<Title level={4}> 四级标题</Title>\n<Title level={5}> 五级标题</Title>'}           
                       </Paragraph>                                             
                           )}           
@@ -73,7 +73,7 @@ const App: React.FC = () => {
               </div>
             </Flex>
             <h3>正文</h3> 
-            <Flex gap="small" vertical >
+            <Flex gap="small" vertical className={styles.flexborder} >
       
                 <Flex gap="small" vertical> 
                 <Text>中金北斗(默认文字)</Text>
@@ -99,7 +99,7 @@ const App: React.FC = () => {
                   <Button onClick={() => toggleDiv('isVisible_A')}>显示代码</Button>
                   <Flex gap="small" wrap="wrap" >            
                   {isVisible_A && (                                           
-                    <Paragraph copyable style={{whiteSpace: 'pre-wrap', border: '1px solid rgba(0, 0, 0, 0.08)', backgroundColor: 'rgba(100, 30, 30, 0.04)', padding: '16px', width: '100%', margin: '24px 0 0  0'}}>  
+                    <Paragraph copyable className={styles.codeParagraph}>  
                       {'<Text>中金北斗(默认文字)</Text>\n<Text type="secondary">中金北斗(辅助文字)</Text>\n<Text type="success">中金北斗(成功字体)</Text>\n<Text type="warning">中金北斗(警告字体)</Text>\n<Text type="danger">中金北斗(危险字体)</Text>\n<Text disabled>中金北斗(禁用字体)</Text>\n<Text mark>中金北斗(标记字体)</Text>\n<Text code>中金北斗(代码字体)</Text>\n<Text keyboard>中金北斗(键盘字体)</Text>\n<Text underline>中金北斗(下划字体)</Text>\n<Text delete>中金北斗(删除字体)</Text>\n<Text strong>中金北斗(加粗字体)</Text>\n<Text italic>中金北斗(斜体字)</Text>\n<Link href="https://www.cicc.com/" target="_blank">中金北斗 (文字链)</Link>'}           
                     </Paragraph>                      
                   )}           

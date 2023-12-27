@@ -1,19 +1,18 @@
-import stylesindex from '../layouts/index.less'; 
-import styles from './button.less';  
+
+import styles from '../layouts/index.less'; 
 import { Button, Flex, ConfigProvider, Space, Typography } from 'antd';  
 import { PoweroffOutlined } from '@ant-design/icons';
 import React, { useState } from 'react';
 const { Paragraph, Text, Link } = Typography;
-
+const theme = {  
+  token: {  
+    colorPrimary: '#6C1E1E',  
+    borderRadius: 2,  
+    colorLink: '#6C1E1E',              
+  },  
+};
 
 const App: React.FC = () => {  
-  const theme = {  
-    token: {  
-      colorPrimary: '#6C1E1E',  
-      borderRadius: 2,  
-      colorLink: '#6C1E1E',              
-    },  
-  };
 
   /* 
   useState 钩子来管理代码块的显示状态
@@ -55,7 +54,7 @@ const App: React.FC = () => {
   
           <h2>样式展示</h2>  
           <h3>类型</h3> 
-          <Flex gap="small" vertical style={{border: '1px solid rgba(0, 0, 0, 0.08)', padding: '32px'}}>           
+          <Flex  gap="small" vertical className={styles.flexborder}>           
             <Flex gap="small" wrap="wrap" >               
               <Button type="primary">主要按钮</Button>  
               <Button>默认按钮</Button>  
@@ -66,14 +65,14 @@ const App: React.FC = () => {
             <Flex gap="small" wrap="wrap" >
               <Button style={{margin:'24px 0 0  0'}} onClick={() => toggleDiv('isVisible')}>显示代码</Button>                
               {isVisible && (
-                <Paragraph copyable style={{whiteSpace: 'pre-wrap', border: '1px solid rgba(0, 0, 0, 0.08)', backgroundColor: 'rgba(100, 30, 30, 0.04)', padding: '16px', width: '100%', margin: '24px 0 0  0'}}>  
+                <Paragraph copyable className={styles.codeParagraph}>  
                   {'<Button type="primary">主要按钮</Button>\n<Button>默认按钮</Button>\n<Button type="dashed">虚线按钮</Button>\n<Button type="text">文字按钮</Button>\n<Button type="link">链接按钮</Button>'}           
                 </Paragraph>                                  
                 )}                                       
             </Flex>                                                 
           </Flex>
           <h3>尺寸</h3>
-          <Flex gap="small" vertical style={{border: '1px solid rgba(0, 0, 0, 0.08)', padding: '32px'}}>           
+          <Flex gap="small" vertical className={styles.flexborder}>           
             <Flex gap="small" wrap="wrap" >               
                 <Button type="primary" size="large">大尺寸</Button> 
                 <Button type="primary" size="middle">中尺寸</Button> 
@@ -82,14 +81,14 @@ const App: React.FC = () => {
             <Flex gap="small" wrap="wrap" >
               <Button style={{margin:'24px 0 0  0'}} onClick={() => toggleDiv('isVisible_A')}>显示代码</Button>                
               {isVisible_A  && (
-                <Paragraph copyable style={{whiteSpace: 'pre-wrap', border: '1px solid rgba(0, 0, 0, 0.08)', backgroundColor: 'rgba(100, 30, 30, 0.04)', padding: '16px', width: '100%', margin: '24px 0 0  0'}}>  
+                <Paragraph copyable className={styles.codeParagraph}>  
                   {'<Button type="primary" size="large">大尺寸</Button>\n<Button type="primary" size="middle">中尺寸</Button>\n<Button type="primary" size="small">小尺寸</Button>'}           
                 </Paragraph>                                  
                 )}                                       
             </Flex>                                                 
           </Flex>
           <h3>状态</h3>
-          <Flex gap="small" vertical style={{border: '1px solid rgba(0, 0, 0, 0.08)', padding: '32px'}}>           
+          <Flex gap="small" vertical className={styles.flexborder}>           
             <Flex gap="small" wrap="wrap" >               
                 <Button type="primary" icon={<PoweroffOutlined />}>图标按钮</Button>
                 <Button type="primary" icon={<PoweroffOutlined />}></Button>  
@@ -98,7 +97,7 @@ const App: React.FC = () => {
             <Flex gap="small" wrap="wrap" >
               <Button style={{margin:'24px 0 0  0'}} onClick={() => toggleDiv('isVisible_B')}>显示代码</Button>                
               {isVisible_B  && (
-                <Paragraph copyable style={{whiteSpace: 'pre-wrap', border: '1px solid rgba(0, 0, 0, 0.08)', backgroundColor: 'rgba(100, 30, 30, 0.04)', padding: '16px', width: '100%', margin: '24px 0 0  0'}}>  
+                <Paragraph copyable className={styles.codeParagraph}>  
                   {'<Button type="primary" icon={<PoweroffOutlined />}>图标按钮</Button>\n<Button type="primary" icon={<PoweroffOutlined />}></Button>\n<Button type="primary" loading>Loading</Button>'}           
                 </Paragraph>                                  
                 )}                                       
