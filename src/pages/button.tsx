@@ -67,7 +67,7 @@ const App: React.FC = () => {
             </Flex>                                                 
           </Flex>
           <h3>尺寸</h3>
-          <Flex gap="small" vertical style={{border: '1px solid rgba(0, 0, 0, 0.08)', padding: '32px'}}>           
+          <Flex gap="small" vertical className={styles.flexborder}>           
             <Flex gap="small" wrap="wrap" >               
                 <Button type="primary" size="large">大尺寸</Button> 
                 <Button type="primary" size="middle">中尺寸</Button> 

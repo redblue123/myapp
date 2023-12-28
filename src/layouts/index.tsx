@@ -5,11 +5,22 @@ import SmileUrl, { ReactComponent as SvgSmile } from '../../public/logo.svg';
   
 // 定义一个类型来匹配您的主题对象结构  
 export const theme = {  
-  token: {  
-    colorPrimary: '#6C1E1E',  
+  token: {
+    //  SeedToken
+    colorPrimary:'#6C1E1E', 
+    redSecondary:'#AB4930',
+    ciccPrimary:'#BE8C4A', //cicc-yellow
+    yellowSecondary:'#845B2E',
+    blueSecondary:'#3E4666',  
     borderRadius: 2,  
-    colorLink: '#6C1E1E',              
-  },  
+    colorLink: '#6C1E1E',
+    colorSuccess:'#63BD36',
+    colorWarning:'#faad14',
+    colorError:'D63E3E',
+    greyColor:'000000',
+
+  },
+    
 };
   
 // 定义并导出您的布局组件  
