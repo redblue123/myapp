@@ -3,14 +3,9 @@ import styles from '../layouts/index.less';
 import { Button, Flex, ConfigProvider, Space, Typography } from 'antd';  
 import { PoweroffOutlined } from '@ant-design/icons';
 import React, { useState } from 'react';
+import {theme} from '../layouts/index' //公共样式引入
 const { Paragraph, Text, Link } = Typography;
-const theme = {  
-  token: {  
-    colorPrimary: '#6C1E1E',  
-    borderRadius: 2,  
-    colorLink: '#6C1E1E',              
-  },  
-};
+
 
 const App: React.FC = () => {  
 
@@ -72,7 +67,7 @@ const App: React.FC = () => {
             </Flex>                                                 
           </Flex>
           <h3>尺寸</h3>
-          <Flex gap="small" vertical className={styles.flexborder}>           
+          <Flex gap="small" vertical style={{border: '1px solid rgba(0, 0, 0, 0.08)', padding: '32px'}}>           
             <Flex gap="small" wrap="wrap" >               
                 <Button type="primary" size="large">大尺寸</Button> 
                 <Button type="primary" size="middle">中尺寸</Button> 
