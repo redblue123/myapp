@@ -7,7 +7,7 @@ import SmileUrl, { ReactComponent as SvgSmile } from '../../public/logo.svg';
 export const theme = {  
   token: {
     //  SeedToken
-    colorPrimary:'#6C1E1E', 
+    colorPrimary:'rgba(110, 30, 30, 1)', // #6C1E1E
     redSecondary:'#AB4930',
     ciccPrimary:'#BE8C4A', //cicc-yellow
     yellowSecondary:'#845B2E',

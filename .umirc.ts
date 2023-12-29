@@ -14,6 +14,8 @@ export default defineConfig({
     { path: "/docs", component: "docs", name: "docs" },
 
     { path: "/products", component: "products", name: "products" },
+
+    { path: "/input", component: "input", name: "input" },
     
   ],
   plugins: ["@umijs/plugins/dist/react-query"],
