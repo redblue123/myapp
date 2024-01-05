@@ -11,16 +11,16 @@ export default defineConfig({
 
     { path: "/button", component: "button", name: "Button 按钮" },
 
-    { path: "/flex", component: "flex", name: "flex" },
+    { path: "/flex", component: "flex", name: "Flex 布局" },
 
-    { path: "/docs", component: "docs", name: "docs" },
+    { path: "/pagination", component: "pagination", name: "Pagination 分页" },
 
     { path: "/products", component: "products", name: "products" },
     
     { path: "/input", component: "input", name: "input" },
 
+    { path: "/test", component: "test", name: "test 测试" },
 
-    
   ],
   plugins: ["@umijs/plugins/dist/react-query"],
   reactQuery: {},

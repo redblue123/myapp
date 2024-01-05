@@ -81,9 +81,47 @@ const App: React.FC = () => {
             <Flex gap="small" wrap="wrap" >
               <Button style={{margin:'24px 0 0  0'}} onClick={() => toggleDiv('isVisible')}>显示代码</Button>                
               {isVisible && (
-                <Paragraph copyable className={styles.codeParagraph}>  
-                  {'<ColorPicker size="large" />\n<ColorPicker size="large" style={{opacity:0.8}}/>\n<ColorPicker size="large" style={{opacity:0.6}}/>\n<ColorPicker size="large" style={{opacity:0.4}}/>\n<ColorPicker size="large" style={{opacity:0.2}}/> '}
-                </Paragraph>                                  
+                <Text copyable className={styles.codeText}>  
+                  {`
+        <Flex gap="middle" wrap="wrap" >
+        <Flex gap="small" vertical>
+          <ColorPicker size="large" /> 
+          <ColorPicker size="large" style={{opacity:0.8}}/>
+          <ColorPicker size="large" style={{opacity:0.6}}/>
+          <ColorPicker size="large" style={{opacity:0.4}}/>              
+          <ColorPicker size="large" style={{opacity:0.2}}/>
+        </Flex>
+        <Flex gap="small" vertical>
+          <ColorPicker size="large" value={theme.token.redSecondary}/>
+          <ColorPicker size="large" value={theme.token.redSecondary} style={{opacity:0.8}}/>
+          <ColorPicker size="large" value={theme.token.redSecondary} style={{opacity:0.6}}/>
+          <ColorPicker size="large" value={theme.token.redSecondary} style={{opacity:0.4}}/>
+          <ColorPicker size="large" value={theme.token.redSecondary} style={{opacity:0.2}}/> 
+        </Flex>
+
+        <Flex gap="small" vertical>
+          <ColorPicker size="large" value={theme.token.ciccPrimary} />
+          <ColorPicker size="large" value={theme.token.ciccPrimary} style={{opacity:0.8}}/>
+          <ColorPicker size="large" value={theme.token.ciccPrimary} style={{opacity:0.6}}/>
+          <ColorPicker size="large" value={theme.token.ciccPrimary} style={{opacity:0.4}}/>
+          <ColorPicker size="large" value={theme.token.ciccPrimary} style={{opacity:0.2}}/> 
+        </Flex>
+        <Flex gap="small" vertical>
+          <ColorPicker size="large" value={theme.token.yellowSecondary} />
+          <ColorPicker size="large" value={theme.token.yellowSecondary} style={{opacity:0.8}}/>
+          <ColorPicker size="large" value={theme.token.yellowSecondary} style={{opacity:0.6}}/>
+          <ColorPicker size="large" value={theme.token.yellowSecondary} style={{opacity:0.4}}/>
+          <ColorPicker size="large" value={theme.token.yellowSecondary} style={{opacity:0.2}}/> 
+        </Flex>
+        <Flex gap="small" vertical>
+          <ColorPicker size="large" value={theme.token.blueSecondary} />
+          <ColorPicker size="large" value={theme.token.blueSecondary} style={{opacity:0.8}}/>
+          <ColorPicker size="large" value={theme.token.blueSecondary} style={{opacity:0.6}}/>
+          <ColorPicker size="large" value={theme.token.blueSecondary} style={{opacity:0.4}}/>
+          <ColorPicker size="large" value={theme.token.blueSecondary} style={{opacity:0.2}}/> 
+        </Flex>
+      </Flex > `}
+                </Text>                                  
                 )}                                       
             </Flex>                                                 
           </Flex>
@@ -129,9 +167,46 @@ const App: React.FC = () => {
             <Flex gap="small" wrap="wrap" >
               <Button style={{margin:'24px 0 0  0'}} onClick={() => toggleDiv('isVisible_A')}>显示代码</Button>                
               {isVisible_A && (
-                <Paragraph copyable className={styles.codeParagraph}>  
-                  {'<Flex gap="small" vertical align="center"> \n  <Flex gap="small" wrap="wrap">\n    <ColorPicker size="large" value={theme.token.colorLink}/>\n  </Flex>\n  <Flex gap="small" wrap="wrap">\n    中金红-链接\n  </Flex>\n</Flex>'}
-                </Paragraph>                                  
+                <Text copyable className={styles.codeText}>  
+                  {`
+        <Flex gap="middle" wrap="wrap">
+        <Flex gap="small" vertical align="center"> 
+          <Flex gap="small" wrap="wrap">
+          <ColorPicker size="large" value={theme.token.colorLink}/>
+          </Flex>
+          <Flex gap="small" wrap="wrap">
+          中金红-链接
+          </Flex>
+        </Flex>
+
+        <Flex gap="small" vertical align="center"> 
+          <Flex gap="small" wrap="wrap">
+          <ColorPicker size="large" value={theme.token.colorSuccess}/>
+          </Flex>
+          <Flex gap="small" wrap="wrap">
+          绿色-成功
+          </Flex>
+        </Flex>
+
+        <Flex gap="small" vertical align="center"> 
+          <Flex gap="small" wrap="wrap">
+          <ColorPicker size="large" value={theme.token.colorWarning}/>
+          </Flex>
+          <Flex gap="small" wrap="wrap">
+          黄色-警告
+          </Flex>
+        </Flex>
+
+        <Flex gap="small" vertical align="center"> 
+          <Flex gap="small" wrap="wrap">
+          <ColorPicker size="large" value={theme.token.colorError}/>
+          </Flex>
+          <Flex gap="small" wrap="wrap">
+          红色-错误
+          </Flex>
+        </Flex>
+      </Flex>`}
+                </Text>                                  
                 )}                                       
             </Flex> 
 
@@ -241,12 +316,6 @@ const App: React.FC = () => {
 
             </Flex>
           </Flex>
-          
-          
-
-
-        
-
 
         </Flex>                                       
       </Space>  

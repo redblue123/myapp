@@ -59,9 +59,49 @@ const App: React.FC = () => {
           <Flex gap="small" wrap="wrap" >
             <Button style={{margin:'24px 0 0  0'}} onClick={() => toggleDiv('isVisible')}>显示代码</Button>                
             {isVisible && (
-              <Paragraph copyable className={styles.codeParagraph}>  
-                {'<Button type="primary">主要按钮</Button>\n<Button>默认按钮</Button>\n<Button type="dashed">虚线按钮</Button>\n<Button type="text">文字按钮</Button>\n<Button type="link">链接按钮</Button>'}           
-              </Paragraph>                                  
+              <Text copyable className={styles.codeText}>  
+            {`
+import styles from '../layouts/index.less'; 
+import { Button, Flex, ConfigProvider, Typography } from 'antd';  
+import { PoweroffOutlined } from '@ant-design/icons';
+import React, { useState } from 'react';
+import {theme} from '../layouts/index' //公共样式引入
+const { Paragraph, Text, Link } = Typography;
+
+const App: React.FC = () => {  
+  const [isVisible, setIsVisible] = useState(false);
+  const toggleDiv = (div:string) => {  
+    if(div === 'isVisible'){      
+      setIsVisible(!isVisible);
+    }             
+  };  
+  return (  
+    <ConfigProvider theme={theme}>  
+      <Flex gap="small" vertical >
+        <Flex  gap="small" vertical className={styles.flexborder}>           
+          <Flex gap="small" wrap="wrap" >               
+            <Button type="primary">主要按钮</Button>  
+            <Button>默认按钮</Button>  
+            <Button type="dashed">虚线按钮</Button>  
+            <Button type="text">文字按钮</Button>  
+            <Button type="link">链接按钮</Button>              
+          </Flex >                 
+          <Flex gap="small" wrap="wrap" >
+            <Button style={{margin:'24px 0 0  0'}} onClick={() => toggleDiv('isVisible')}>显示代码</Button>                
+            {isVisible && (
+              <Text copyable className={styles.codeText}>  
+            {'这里是一段代码'}           
+              </Text>                                  
+              )}                                       
+          </Flex>                                                 
+        </Flex>
+      </Flex>                                       
+    </ConfigProvider>  
+  );  
+};  
+  
+export default App;`}           
+              </Text>                                  
               )}                                       
           </Flex>                                                 
         </Flex>
@@ -75,9 +115,14 @@ const App: React.FC = () => {
           <Flex gap="small" wrap="wrap" >
             <Button style={{margin:'24px 0 0  0'}} onClick={() => toggleDiv('isVisible_A')}>显示代码</Button>                
             {isVisible_A  && (
-              <Paragraph copyable className={styles.codeParagraph}>  
-                {'<Button type="primary" size="large">大尺寸</Button>\n<Button type="primary" size="middle">中尺寸</Button>\n<Button type="primary" size="small">小尺寸</Button>'}           
-              </Paragraph>                                  
+              <Text copyable className={styles.codeText}>  
+                {`
+<Flex gap="small" wrap="wrap" >               
+    <Button type="primary" size="large">大尺寸</Button> 
+    <Button type="primary" size="middle">中尺寸</Button> 
+    <Button type="primary" size="small">小尺寸</Button>               
+</Flex > `}           
+              </Text>                                  
               )}                                       
           </Flex>                                                 
         </Flex>
@@ -91,9 +136,14 @@ const App: React.FC = () => {
           <Flex gap="small" wrap="wrap" >
             <Button style={{margin:'24px 0 0  0'}} onClick={() => toggleDiv('isVisible_B')}>显示代码</Button>                
             {isVisible_B  && (
-              <Paragraph copyable className={styles.codeParagraph}>  
-                {'<Button type="primary" icon={<PoweroffOutlined />}>图标按钮</Button>\n<Button type="primary" icon={<PoweroffOutlined />}></Button>\n<Button type="primary" loading>Loading</Button>'}           
-              </Paragraph>                                  
+              <Text copyable className={styles.codeText}>
+                {`
+<Flex gap="small" wrap="wrap" >               
+    <Button type="primary" icon={<PoweroffOutlined />}>图标按钮</Button>
+    <Button type="primary" icon={<PoweroffOutlined />}></Button>  
+    <Button type="primary" loading>Loading</Button>                
+</Flex >`}           
+              </Text>                                  
               )}                                       
           </Flex>                                                 
         </Flex>          
