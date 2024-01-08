@@ -50,9 +50,9 @@ const App: React.FC = () => {
         <h3>类型</h3> 
         <Flex  gap="small" vertical className={styles.flexborder}>           
           <Flex gap="small" wrap="wrap" >               
-            <Button type="primary">主要按钮</Button>  
+            <Button type="primary" style={{ boxShadow: 'none' }} >主要按钮</Button>  
             <Button>默认按钮</Button>  
-            <Button type="dashed">虚线按钮</Button>  
+            <Button type="dashed" >虚线按钮</Button>  
             <Button type="text">文字按钮</Button>  
             <Button type="link">链接按钮</Button>              
           </Flex >                 
@@ -74,7 +74,8 @@ const App: React.FC = () => {
     if(div === 'isVisible'){      
       setIsVisible(!isVisible);
     }             
-  };  
+  };
+  
   return (  
     <ConfigProvider theme={theme}>  
       <Flex gap="small" vertical >
@@ -108,9 +109,9 @@ export default App;`}
         <h3>尺寸</h3>
         <Flex gap="small" vertical className={styles.flexborder}>           
           <Flex gap="small" wrap="wrap" >               
-              <Button type="primary" size="large">大尺寸</Button> 
-              <Button type="primary" size="middle">中尺寸</Button> 
-              <Button type="primary" size="small">小尺寸</Button>               
+              <Button type="primary" size="large" style={{ boxShadow: 'none'}}>大尺寸</Button> 
+              <Button type="primary" size="middle" style={{ boxShadow: 'none'}}>中尺寸</Button> 
+              <Button type="primary" size="small" style={{ boxShadow: 'none'}}>小尺寸</Button>               
           </Flex >                 
           <Flex gap="small" wrap="wrap" >
             <Button style={{margin:'24px 0 0  0'}} onClick={() => toggleDiv('isVisible_A')}>显示代码</Button>                
@@ -129,9 +130,9 @@ export default App;`}
         <h3>状态</h3>
         <Flex gap="small" vertical className={styles.flexborder}>           
           <Flex gap="small" wrap="wrap" >               
-              <Button type="primary" icon={<PoweroffOutlined />}>图标按钮</Button>
-              <Button type="primary" icon={<PoweroffOutlined />}></Button>  
-              <Button type="primary" loading>Loading</Button>                
+              <Button style={{ boxShadow: 'none' }} type="primary"  icon={<PoweroffOutlined  />}>图标按钮</Button>
+              <Button type="primary" style={{ boxShadow: 'none'}} icon={<PoweroffOutlined  />}></Button>  
+              <Button type="primary" loading style={{ boxShadow: 'none'}}>Loading</Button>                
           </Flex >                 
           <Flex gap="small" wrap="wrap" >
             <Button style={{margin:'24px 0 0  0'}} onClick={() => toggleDiv('isVisible_B')}>显示代码</Button>                

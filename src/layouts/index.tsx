@@ -18,6 +18,8 @@ export const theme = {
     colorWarning:'#faad14',
     colorError:'D63E3E',
     greyColor:'000000',
+    controlOutline:'rgba(110, 30, 30, 0.1)'
+  
     // colorInfoBorder:'rgba(110, 30, 30, 0.5)',
     // colorInfoBorderHover:'rgba(110, 30, 30, 1)',
     // colorInfoActive:'rgba(110, 30, 30, 1)',

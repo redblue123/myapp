@@ -147,10 +147,10 @@ export default App;`}
         <p>Select align :</p>
         <Segmented options={alignOptions} onChange={setAlignItems as SegmentedProps['onChange']} />
         <Flex style={boxStyle} justify={justify} align={alignItems}>
-          <Button type="primary">Primary</Button>
-          <Button type="primary">Primary</Button>
-          <Button type="primary">Primary</Button>
-          <Button type="primary">Primary</Button>
+          <Button type="primary" style={{ boxShadow: 'none', border: 'none' }}>Primary</Button>
+          <Button type="primary" style={{ boxShadow: 'none', border: 'none' }}>Primary</Button>
+          <Button type="primary" style={{ boxShadow: 'none', border: 'none' }}>Primary</Button>
+          <Button type="primary" style={{ boxShadow: 'none', border: 'none' }}>Primary</Button>
         </Flex>
       </Flex> 
       <Flex gap="small" wrap="wrap" >

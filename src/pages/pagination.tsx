@@ -10,9 +10,12 @@ const { Paragraph, Text, Link } = Typography;
 const App: React.FC = () => {  
   const [isVisible, setIsVisible] = useState(false);
   const [isVisible_A, setIsVisible_A ] = useState(false);
+  const [isVisible_B, setIsVisible_B ] = useState(false);
   const onShowSizeChange: PaginationProps['onShowSizeChange'] = (current, pageSize) => {
     console.log(current, pageSize);
   };
+
+  
 
   const toggleDiv = (div:string) => {  
     if(div === 'isVisible'){      

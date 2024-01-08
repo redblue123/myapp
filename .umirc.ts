@@ -15,6 +15,8 @@ export default defineConfig({
 
     { path: "/pagination", component: "pagination", name: "Pagination 分页" },
 
+    { path: "/form", component: "form", name: "form 表单" },    
+
     { path: "/products", component: "products", name: "products" },
     
     { path: "/input", component: "input", name: "input" },
