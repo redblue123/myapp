@@ -1,10 +1,79 @@
 
 import styles from '../layouts/index.less';  
-import { Button, Flex, ConfigProvider, Space, Typography } from 'antd';  
-import { PoweroffOutlined } from '@ant-design/icons';
-import React, { useState } from 'react';
+import { Button, Flex, ConfigProvider, Space, Typography, message } from 'antd';  
+import { CopyOutlined  } from '@ant-design/icons';
+import React, { useState, useEffect } from 'react';
+import hljs from '../../libs/highlight/highlight.js';  
+import '../../libs/highlight/styles/panda-syntax-light.css'; 
 const { Title, Paragraph, Text, Link } = Typography;
+const codeString = `
+const App: React.FC = () => {  
+  const [isVisible_A, setIsVisible_A] = useState(false);
+  
+  const toggleDiv = (div:string) => {  
+    if(div === 'isVisible'){      
+      setIsVisible_A(!isVisible_A);
+    }            
+  }; 
+  return (
+      
+    <ConfigProvider theme={theme} >
+      <Flex gap="small" vertical >
+        <Flex  gap="small" vertical className={styles.flexborder}>
+        <Flex gap="small" vertical> 
+          <Title> 一级标题</Title>
+          <Title level={2}> 二级标题</Title>
+          <Title level={3}> 三级标题</Title>
+          <Title level={4}> 四级标题</Title>
+          <Title level={5}> 五级标题</Title>                        
+        </Flex>  
+        </Flex> 
+      </Flex>                                       
+    </ConfigProvider>  
+  );  
+};  
+  
+export default App; 
+`
+const codeString_A = `
+import styles from '../layouts/index.less'; 
+import {Flex, ConfigProvider, Typography, } from 'antd';  
+import {theme} from '../layouts/index' 
+const { Text, Link } = Typography;
+import '../../libs/highlight/styles/panda-syntax-light.css'; 
 
+const App: React.FC = () => {  
+  return (
+      
+    <ConfigProvider theme={theme} >
+      <Flex gap="small" vertical >
+        <Flex  gap="small" vertical className={styles.flexborder}>
+                <Flex gap="small" vertical> 
+                <Text>中金北斗(默认文字)</Text>
+                <Text type="secondary">中金北斗(辅助文字)</Text>
+                <Text type="success">中金北斗(成功字体)</Text>
+                <Text type="warning">中金北斗(警告字体)</Text>
+                <Text type="danger">中金北斗(危险字体)</Text>
+                <Text disabled>中金北斗(禁用字体)</Text>
+                <Text mark>中金北斗(标记字体)</Text>
+                <Text code>中金北斗(代码字体)</Text>
+                <Text keyboard>中金北斗(键盘字体)</Text>
+                <Text underline>中金北斗(下划字体)</Text>
+                <Text delete>中金北斗(删除字体)</Text>
+                <Text strong>中金北斗(加粗字体)</Text>
+                <Text italic>中金北斗(斜体字)</Text>
+                <Link href="https://www.cicc.com/" target="_blank">
+                  中金北斗 (文字链)
+                </Link>                
+                </Flex>
+        </Flex> 
+      </Flex>                                       
+    </ConfigProvider>  
+  );  
+};  
+  
+export default App;     
+`
 const App: React.FC = () => {  
   const theme = {  
     token: {  
@@ -22,20 +91,46 @@ const App: React.FC = () => {
   */
   const [isVisible, setIsVisible] = useState(false);
   const [isVisible_A, setIsVisible_A ] = useState(false);
-  const [isVisible_B, setIsVisible_B ] = useState(false);
+
+  const [isHighlighted, setIsHighlighted] = useState(false);
   const toggleDiv = (div:string) => {  
     if(div === 'isVisible'){      
       setIsVisible(!isVisible);
     } else if (div === 'isVisible_A') {
       // console.log("111");             
       setIsVisible_A(!isVisible_A);  
-    } else{
-      setIsVisible_B(!isVisible_B);
-    }      
+    } 
+    setIsHighlighted(false);  // 手动重置高亮状态       
   };
 
+  useEffect(() => {  
+    if ((isVisible||isVisible_A) && !isHighlighted) {  
+      // 仅在显示代码且未高亮时执行高亮操作  
+      hljs.highlightAll(); 
+      setIsHighlighted(true); // 标记已高亮 
+    }
+  }, [isVisible, isVisible_A]); // 仅在sVisible, isVisible_A, isVisible_B 变化时触发高亮操作  
+
+  const [messageApi, contextHolder] = message.useMessage();
+  const success = () => {
+    messageApi.open({
+      type: 'success',
+      content: '复制成功',
+    });
+  };
+
+  const [copied, setCopied] = useState(false);
+  const copyText = (text:string) =>{
+    navigator.clipboard.writeText(text).then(() => {  
+      setCopied(true);   
+    }).catch((err) => {  
+      console.error('Error in copying text', err);  
+    });  
+  }
+
   return (  
-    <ConfigProvider theme={theme}>  
+    <ConfigProvider theme={theme}>
+      {contextHolder}  
       <Space>
         <Flex gap="small" vertical>
             <h1 className={styles.title}>Font 字体</h1>      
@@ -59,14 +154,20 @@ const App: React.FC = () => {
                 <Title level={4}> 四级标题</Title>
                 <Title level={5}> 五级标题</Title>                        
               </Flex>  
-              <Flex gap="small" wrap="wrap" >
-                <Button onClick={() => toggleDiv('isVisible')}>显示代码</Button>             
-                  {isVisible && (
-                    <Paragraph copyable className={styles.codeParagraph}>  
-                      {'<Title> 一级标题</Title>\n<Title level={2}> 二级标题</Title>\n<Title level={3}> 三级标题</Title>\n<Title level={4}> 四级标题</Title>\n<Title level={5}> 五级标题</Title>'}           
-                    </Paragraph>                                             
-                        )}           
-              </Flex>               
+            <Flex gap="small" wrap="wrap" >
+            <Button style={{margin:'24px 0 0  0'}} onClick={() => toggleDiv('isVisible')}>显示代码</Button>
+            <Button icon={<CopyOutlined />} style={{margin:'24px 0 0  0'}} onClick={(e) => {
+              copyText(codeString);
+              success();
+            }}>复制代码</Button>
+            {isVisible && (
+                   <pre  style={{ width: '100%', overflow: 'auto' }} > 
+                  <code  className="language-javascript" > 
+                    {codeString}
+                  </code>  
+                </pre>
+              )}                                    
+          </Flex>                
             </Flex>
             <h3>正文</h3> 
             <Flex gap="small" vertical className={styles.flexborder}>
@@ -92,14 +193,20 @@ const App: React.FC = () => {
 
                 </Flex>
                   
-                  <Flex gap="small" wrap="wrap" >
-                  <Button style={{margin:'24px 0 0  0'}} onClick={() => toggleDiv('isVisible_A')}>显示代码</Button>            
-                  {isVisible_A && (                                           
-                    <Paragraph copyable className={styles.codeParagraph}>  
-                      {'<Text>中金北斗(默认文字)</Text>\n<Text type="secondary">中金北斗(辅助文字)</Text>\n<Text type="success">中金北斗(成功字体)</Text>\n<Text type="warning">中金北斗(警告字体)</Text>\n<Text type="danger">中金北斗(危险字体)</Text>\n<Text disabled>中金北斗(禁用字体)</Text>\n<Text mark>中金北斗(标记字体)</Text>\n<Text code>中金北斗(代码字体)</Text>\n<Text keyboard>中金北斗(键盘字体)</Text>\n<Text underline>中金北斗(下划字体)</Text>\n<Text delete>中金北斗(删除字体)</Text>\n<Text strong>中金北斗(加粗字体)</Text>\n<Text italic>中金北斗(斜体字)</Text>\n<Link href="https://www.cicc.com/" target="_blank">中金北斗 (文字链)</Link>'}           
-                    </Paragraph>                      
-                  )}           
-                </Flex>              
+                <Flex gap="small" wrap="wrap" >
+                <Button style={{margin:'24px 0 0  0'}} onClick={() => toggleDiv('isVisible_A')}>显示代码</Button>
+                <Button icon={<CopyOutlined />} style={{margin:'24px 0 0  0'}} onClick={(e) => {
+                  copyText(codeString_A);
+                  success();
+                }}>复制代码</Button>
+                {isVisible_A && (
+                      <pre  style={{ width: '100%', overflow: 'auto' }} > 
+                      <code  className="language-javascript" > 
+                        {codeString_A}
+                      </code>  
+                    </pre>
+                  )}                                    
+              </Flex>               
                         
 
             </Flex>            

@@ -8,7 +8,9 @@ const { Paragraph, Text, Link } = Typography;
 
 //这里引入了高亮代码的样式和组件库 highlight.js
 import hljs from '../../libs/highlight/highlight.js';  
-import '../../libs/highlight/styles/vs2015.css'; 
+import '../../libs/highlight/styles/panda-syntax-light.css'; 
+ 
+
 
 const codeString = `
 import styles from '../layouts/index.less'; 
@@ -79,7 +81,6 @@ const App: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isVisible_A, setIsVisible_A ] = useState(false);
   const [isVisible_B, setIsVisible_B ] = useState(false);
-
   const [isHighlighted, setIsHighlighted] = useState(false);
 
   const [copied, setCopied] = useState(false); 
@@ -91,23 +92,17 @@ const App: React.FC = () => {
     } else if (div === 'isVisible_A') {             
       setIsVisible_A(!isVisible_A); 
     } else{
-      setIsVisible_B(!isVisible_B); 
-      
+      setIsVisible_B(!isVisible_B);   
     }    
     setIsHighlighted(false);  // 手动重置高亮状态      
   };
 
-
   useEffect(() => {  
-    if (isVisible && !isHighlighted) {  
+    if ((isVisible||isVisible_A||isVisible_B) && !isHighlighted) {  
       // 仅在显示代码且未高亮时执行高亮操作  
-      hljs.highlightAll();     
-    } else if(isVisible_A && !isHighlighted){
-      hljs.highlightAll();  
-    } else if(isVisible_B && !isHighlighted){
-      hljs.highlightAll();  
+      hljs.highlightAll(); 
+      setIsHighlighted(true); // 标记已高亮 
     }
-    setIsHighlighted(true); // 标记已高亮 
   }, [isVisible, isVisible_A, isVisible_B]); // 仅在sVisible, isVisible_A, isVisible_B 变化时触发高亮操作  
 
   const [messageApi, contextHolder] = message.useMessage();
@@ -119,13 +114,11 @@ const App: React.FC = () => {
   };
 
   const copyText = (text:string) =>{
-    if(text === codeString){
-      navigator.clipboard.writeText(codeString)
-    }else if(text === codeString_A){
-      navigator.clipboard.writeText(codeString_A)
-    }else if(text === codeString_B){
-      navigator.clipboard.writeText(codeString_B)
-    }
+    navigator.clipboard.writeText(text).then(() => {  
+      setCopied(true);   
+    }).catch((err) => {  
+      console.error('Error in copying text', err);  
+    });  
   }
 
   return (
@@ -160,10 +153,7 @@ const App: React.FC = () => {
             <Button icon={<CopyOutlined />} style={{margin:'24px 0 0  0'}} onClick={(e) => {
               copyText(codeString);
               success();
-            }}>复制代码</Button>
-            
-             
-                       
+            }}>复制代码</Button>      
             {isVisible && (
                    <pre  style={{ width: '100%', overflow: 'auto' }} > 
                   <code  className="language-javascript" > 
@@ -218,12 +208,9 @@ const App: React.FC = () => {
                     {codeString}
                   </code>  
                 </pre>
-
               )}                                    
           </Flex>                                                 
         </Flex>          
-
-
       </Flex>                                       
     </ConfigProvider>  
   );  

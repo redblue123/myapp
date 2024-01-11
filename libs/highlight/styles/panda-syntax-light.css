@@ -13,7 +13,7 @@ code.hljs {
  */
 .hljs {
   color: #2a2c2d;
-  background: #e6e6e6
+  background: #F3EDED
 }
 .hljs-emphasis {
   font-style: italic
@@ -41,11 +41,11 @@ code.hljs {
 .hljs-meta,
 .hljs-operator,
 .hljs-char.escape_ {
-  color: #c56200
+  color: #c27706
 }
 .hljs-keyword,
 .hljs-deletion {
-  color: #d92792
+  color: #d92765
 }
 .hljs-regexp,
 .hljs-selector-pseudo,
@@ -69,7 +69,7 @@ code.hljs {
 .hljs-title.class_,
 .hljs-title.class_.inherited__,
 .hljs-meta .hljs-string {
-  color: #0d7d6c
+  color: #0d7d67
 }
 .hljs-variable,
 .hljs-template-variable,
@@ -85,5 +85,5 @@ code.hljs {
 .hljs-attribute,
 .hljs-template-tag,
 .hljs-meta .hljs-keyword {
-  color: #7641bb
+  color: #7d33dd
 }
