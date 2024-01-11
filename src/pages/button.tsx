@@ -1,7 +1,7 @@
 
 import styles from '../layouts/index.less'; 
-import { Button, Flex, ConfigProvider, Typography} from 'antd';  
-import { PoweroffOutlined } from '@ant-design/icons';
+import { Button, Flex, ConfigProvider, Typography, message} from 'antd';  
+import { PoweroffOutlined, CopyOutlined } from '@ant-design/icons';
 import React, { useState, useEffect } from 'react';
 import {theme} from '../layouts/index' //公共样式引入
 const { Paragraph, Text, Link } = Typography;
@@ -68,6 +68,7 @@ const codeString_B = `
 </Flex >`;
 
 const App: React.FC = () => {  
+  
 
   /* 
   useState 钩子来管理代码块的显示状态
@@ -90,8 +91,9 @@ const App: React.FC = () => {
     } else if (div === 'isVisible_A') {             
       setIsVisible_A(!isVisible_A); 
     } else{
-      setIsVisible_B(!isVisible_B);  
-    }
+      setIsVisible_B(!isVisible_B); 
+      
+    }    
     setIsHighlighted(false);  // 手动重置高亮状态      
   };
 
@@ -108,11 +110,29 @@ const App: React.FC = () => {
     setIsHighlighted(true); // 标记已高亮 
   }, [isVisible, isVisible_A, isVisible_B]); // 仅在sVisible, isVisible_A, isVisible_B 变化时触发高亮操作  
 
+  const [messageApi, contextHolder] = message.useMessage();
+  const success = () => {
+    messageApi.open({
+      type: 'success',
+      content: '复制成功',
+    });
+  };
 
+  const copyText = (text:string) =>{
+    if(text === codeString){
+      navigator.clipboard.writeText(codeString)
+    }else if(text === codeString_A){
+      navigator.clipboard.writeText(codeString_A)
+    }else if(text === codeString_B){
+      navigator.clipboard.writeText(codeString_B)
+    }
+  }
 
-  return (  
+  return (
+      
     <ConfigProvider theme={theme}>  
       <Flex gap="small" vertical >
+      {contextHolder}
         <h1 className={styles.title}>Button 按钮</h1>      
         <h2>简述</h2>  
         <p>为了提高用户体验和点击率，需要考虑主次关系和疏密关系。根据不同的需求和情况，选择合适的尺寸、颜色和位置来呈现按钮。</p>  
@@ -137,8 +157,11 @@ const App: React.FC = () => {
           </Flex >                 
           <Flex gap="small" wrap="wrap" >
             <Button style={{margin:'24px 0 0  0'}} onClick={() => toggleDiv('isVisible')}>显示代码</Button>
-            <Button style={{margin:'24px 0 0  0'}} onClick={(e) => {
+            <Button icon={<CopyOutlined />} style={{margin:'24px 0 0  0'}} onClick={(e) => {
+              copyText(codeString);
+              success();
             }}>复制代码</Button>
+            
              
                        
             {isVisible && (
@@ -160,8 +183,9 @@ const App: React.FC = () => {
           </Flex >                 
           <Flex gap="small" wrap="wrap" >
             <Button style={{margin:'24px 0 0  0'}} onClick={() => toggleDiv('isVisible_A')}>显示代码</Button>
-            <Button style={{margin:'24px 0 0  0'}} onClick={(e) => {
-    
+            <Button icon={<CopyOutlined />} style={{margin:'24px 0 0  0'}} onClick={(e) => {
+              copyText(codeString_A);
+              success();
             }}>复制代码</Button>
                    
                        
@@ -184,12 +208,18 @@ const App: React.FC = () => {
           </Flex >                 
           <Flex gap="small" wrap="wrap" >
             <Button style={{margin:'24px 0 0  0'}} onClick={() => toggleDiv('isVisible_B')}>显示代码</Button>
-                        <Button style={{margin:'24px 0 0  0'}} onClick={() => toggleDiv('isVisible_B')}>显示代码</Button>                
-            {isVisible_B  && (
-              <Text copyable className={styles.codeText}>
-                {codeString_B}           
-              </Text>                                  
-              )}                                       
+            <Button icon={<CopyOutlined />} style={{margin:'24px 0 0  0'}} onClick={(e) => {
+              copyText(codeString_B);
+              success();
+            }}>复制代码</Button>
+            {isVisible_B && (
+                   <pre  style={{ width: '100%', overflow: 'auto' }} > 
+                  <code  className="language-javascript" > 
+                    {codeString}
+                  </code>  
+                </pre>
+
+              )}                                    
           </Flex>                                                 
         </Flex>          
 
