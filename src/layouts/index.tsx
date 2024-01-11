@@ -7,10 +7,10 @@ import SmileUrl, { ReactComponent as SvgSmile } from '../../public/logo.svg';
 export const theme = {  
   token: {
     //  SeedToken
-    colorPrimary:'rgba(110, 30, 30, 1)', // #6C1E1E
-    redSecondary:'#AB4930',
-    ciccPrimary:'#BE8C4A', //cicc-yellow
-    yellowSecondary:'#845B2E',
+    colorPrimary:'rgba(110, 30, 30, 1)', // 主色 #6C1E1E
+    redSecondary:'#AB4930', // 辅助色
+    ciccPrimary:'#BE8C4A', // 中金黄 cicc-yellow
+    yellowSecondary:'#845B2E', // 辅助黄
     blueSecondary:'#3E4666',  
     borderRadius: 2,  
     colorLink: '#6C1E1E',
@@ -18,8 +18,15 @@ export const theme = {
     colorWarning:'#faad14',
     colorError:'D63E3E',
     greyColor:'000000',
-    controlOutline:'rgba(110, 30, 30, 0.1)'
-  
+    controlOutline:'rgba(110, 30, 30, 0.1)',
+
+    //下拉框选中时的颜色
+    controlItemBgActive:'rgba(110, 30, 30, 0.08)',
+    colorInfoBg:'rgba(110, 30, 30, 0.08)', //信息色的浅色背景颜色。
+
+    colorInfoBorder:'rgba(110, 30, 30, 0.65)' //信息色的描边色。
+    // colorFillContent:'red'
+    // colorTextSecondary:'red'
     // colorInfoBorder:'rgba(110, 30, 30, 0.5)',
     // colorInfoBorderHover:'rgba(110, 30, 30, 1)',
     // colorInfoActive:'rgba(110, 30, 30, 1)',
@@ -27,6 +34,7 @@ export const theme = {
   },
     
 };
+
   
 // 定义并导出您的布局组件  
 export default function Layout() { 

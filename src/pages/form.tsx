@@ -1,7 +1,28 @@
 
 import styles from '../layouts/index.less'; 
-import { Button, Flex, ConfigProvider, Typography,Checkbox, Form, Input, Select, Space, Radio } from 'antd';  
+import {
+  Flex,
+  ConfigProvider,
+  Typography,
+  Button,
+  Space,
+  Cascader,
+  Checkbox,
+  ColorPicker,
+  DatePicker,
+  Form,
+  Input,
+  InputNumber,
+  Radio,
+  Select,
+  Slider,
+  Switch,
+  TreeSelect,
+  Upload,
+  Alert,
+} from 'antd';   
 import { PoweroffOutlined } from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons'; 
 import React, { useState } from 'react';
 import {theme} from '../layouts/index' //公共样式引入
 const { Paragraph, Text, Link } = Typography;
@@ -26,13 +47,24 @@ const layout = {
 const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
-
 type LayoutType = Parameters<typeof Form>[0]['layout'];
+
+const { RangePicker } = DatePicker;
+const { TextArea } = Input;
+const normFile = (e: any) => {
+  if (Array.isArray(e)) {
+    return e;
+  }
+  return e?.fileList;
+};
+
 
 const App: React.FC = () => {  
   const [isVisible, setIsVisible] = useState(false);
   const [isVisible_A, setIsVisible_A] = useState(false);
   const [isVisible_B, setIsVisible_B] = useState(false);
+  const [isVisible_C, setIsVisible_C] = useState(false);
+  const [isVisible_D, setIsVisible_D] = useState(false);
 
   const toggleDiv = (div:string) => {  
     if(div === 'isVisible'){      
@@ -41,6 +73,10 @@ const App: React.FC = () => {
       setIsVisible_A(!isVisible_A) 
     }else if(div === 'isVisible_B'){
       setIsVisible_B(!isVisible_B)
+    }else if(div === 'isVisible_C'){
+      setIsVisible_C(!isVisible_C)
+    }else if(div === 'isVisible_D'){
+      setIsVisible_D(!isVisible_D)
     }             
   }; 
   
@@ -78,9 +114,9 @@ const App: React.FC = () => {
   const buttonItemLayout =
   formLayout === 'horizontal' ? { wrapperCol: { span: 14, offset: 4 } } : null;
 
-
+  const [componentDisabled, setComponentDisabled] = useState<boolean>(true);
   return (  
-    <ConfigProvider theme={theme}>  
+    <ConfigProvider theme={theme} >  
       <Flex gap="small" vertical >
         <Flex  gap="small" vertical className={styles.flexborder}>           
             <Form
@@ -514,6 +550,394 @@ export default App;`}
         </Flex>  
 
           </Flex>
+          <Flex  gap="small" vertical className={styles.flexborder}>
+          <>
+      <Checkbox
+        checked={componentDisabled}
+        onChange={(e) => setComponentDisabled(e.target.checked)}
+      >
+        Form disabled
+      </Checkbox>
+      <Form
+        labelCol={{ span: 4 }}
+        wrapperCol={{ span: 14 }}
+        layout="horizontal"
+        disabled={componentDisabled}
+        style={{ maxWidth: 600 }}
+      >
+        <Form.Item label="Checkbox" name="disabled" valuePropName="checked">
+          <Checkbox>Checkbox</Checkbox>
+        </Form.Item>
+        <Form.Item label="Radio">
+          <Radio.Group>
+            <Radio value="apple"> Apple </Radio>
+            <Radio value="pear"> Pear </Radio>
+          </Radio.Group>
+        </Form.Item>
+        <Form.Item label="Input">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Select">
+          <Select>
+            <Select.Option value="demo">Demo</Select.Option>
+          </Select>
+        </Form.Item>
+        <Form.Item label="TreeSelect">
+          <TreeSelect
+            treeData={[
+              { title: 'Light', value: 'light', children: [{ title: 'Bamboo', value: 'bamboo' }] },
+            ]}
+          />
+        </Form.Item>
+        <Form.Item label="Cascader">
+          <Cascader
+            options={[
+              {
+                value: 'zhejiang',
+                label: 'Zhejiang',
+                children: [
+                  {
+                    value: 'hangzhou',
+                    label: 'Hangzhou',
+                  },
+                ],
+              },
+            ]}
+          />
+        </Form.Item>
+        <Form.Item label="DatePicker">
+          <DatePicker />
+        </Form.Item>
+        <Form.Item label="RangePicker">
+          <RangePicker />
+        </Form.Item>
+        <Form.Item label="InputNumber">
+          <InputNumber />
+        </Form.Item>
+        <Form.Item label="TextArea">
+          <TextArea rows={4} />
+        </Form.Item>
+        <Form.Item label="Switch" valuePropName="checked">
+          <Switch />
+        </Form.Item>
+        <Form.Item label="Upload" valuePropName="fileList" getValueFromEvent={normFile}>
+          <Upload action="/upload.do" listType="picture-card">
+            <button style={{ border: 0, background: 'none' }} type="button">
+              <PlusOutlined />
+              <div style={{ marginTop: 8 }}>Upload</div>
+            </button>
+          </Upload>
+        </Form.Item>
+        <Form.Item label="Button">
+          <Button>Button</Button>
+        </Form.Item>
+        <Form.Item label="Slider">
+          <Slider />
+        </Form.Item>
+        <Form.Item label="ColorPicker">
+          <ColorPicker />
+        </Form.Item>
+      </Form>
+    </>
+          <Flex gap="small" wrap="wrap" >
+            <Button style={{margin:'24px 0 0  0'}} onClick={() => toggleDiv('isVisible_C')}>显示代码</Button>                
+            {isVisible_C  && (
+              <Text copyable className={styles.codeText}>  
+                {`
+import styles from '../layouts/index.less';
+import { PlusOutlined } from '@ant-design/icons'; 
+import {
+  Flex,
+  ConfigProvider,
+  Typography,
+  Button,
+  Space,
+  Cascader,
+  Checkbox,
+  ColorPicker,
+  DatePicker,
+  Form,
+  Input,
+  InputNumber,
+  Radio,
+  Select,
+  Slider,
+  Switch,
+  TreeSelect,
+  Upload,
+} from 'antd';  
+import { PoweroffOutlined } from '@ant-design/icons';
+import React, { useState } from 'react';
+import {theme} from '../layouts/index' //公共样式引入
+
+const { Paragraph, Text, Link } = Typography;
+
+const { RangePicker } = DatePicker;
+const { TextArea } = Input;
+const normFile = (e: any) => {
+  if (Array.isArray(e)) {
+    return e;
+  }
+  return e?.fileList;
+};
+
+const FormDisabledDemo: React.FC = () => {  
+  const [isVisible_A, setIsVisible_A] = useState(false);
+  const toggleDiv = (div:string) => {  
+    if(div === 'isVisible_A'){      
+      setIsVisible_A(!isVisible_A);
+    }            
+  }; 
+
+  const [componentDisabled, setComponentDisabled] = useState<boolean>(true);
+
+  return (  
+    <ConfigProvider theme={theme} >  
+      <Flex gap="small" vertical >
+        
+          <Flex  gap="small" vertical className={styles.flexborder}>
+          <>
+      <Checkbox
+        checked={componentDisabled}
+        onChange={(e) => setComponentDisabled(e.target.checked)}
+      >
+        Form disabled
+      </Checkbox>
+      <Form
+        labelCol={{ span: 4 }}
+        wrapperCol={{ span: 14 }}
+        layout="horizontal"
+        disabled={componentDisabled}
+        style={{ maxWidth: 600 }}
+      >
+        <Form.Item label="Checkbox" name="disabled" valuePropName="checked">
+          <Checkbox>Checkbox</Checkbox>
+        </Form.Item>
+        <Form.Item label="Radio">
+          <Radio.Group>
+            <Radio value="apple"> Apple </Radio>
+            <Radio value="pear"> Pear </Radio>
+          </Radio.Group>
+        </Form.Item>
+        <Form.Item label="Input">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Select">
+          <Select>
+            <Select.Option value="demo">Demo</Select.Option>
+          </Select>
+        </Form.Item>
+        <Form.Item label="TreeSelect">
+          <TreeSelect
+            treeData={[
+              { title: 'Light', value: 'light', children: [{ title: 'Bamboo', value: 'bamboo' }] },
+            ]}
+          />
+        </Form.Item>
+        <Form.Item label="Cascader">
+          <Cascader
+            options={[
+              {
+                value: 'zhejiang',
+                label: 'Zhejiang',
+                children: [
+                  {
+                    value: 'hangzhou',
+                    label: 'Hangzhou',
+                  },
+                ],
+              },
+            ]}
+          />
+        </Form.Item>
+        <Form.Item label="DatePicker">
+          <DatePicker />
+        </Form.Item>
+        <Form.Item label="RangePicker">
+          <RangePicker />
+        </Form.Item>
+        <Form.Item label="InputNumber">
+          <InputNumber />
+        </Form.Item>
+        <Form.Item label="TextArea">
+          <TextArea rows={4} />
+        </Form.Item>
+        <Form.Item label="Switch" valuePropName="checked">
+          <Switch />
+        </Form.Item>
+        <Form.Item label="Upload" valuePropName="fileList" getValueFromEvent={normFile}>
+          <Upload action="/upload.do" listType="picture-card">
+            <button style={{ border: 0, background: 'none' }} type="button">
+              <PlusOutlined />
+              <div style={{ marginTop: 8 }}>Upload</div>
+            </button>
+          </Upload>
+        </Form.Item>
+        <Form.Item label="Button">
+          <Button>Button</Button>
+        </Form.Item>
+        <Form.Item label="Slider">
+          <Slider />
+        </Form.Item>
+        <Form.Item label="ColorPicker">
+          <ColorPicker />
+        </Form.Item>
+      </Form>
+    </>
+          <Flex gap="small" wrap="wrap" >
+            <Button style={{margin:'24px 0 0  0'}} onClick={() => toggleDiv('isVisible_A')}>显示代码</Button>                
+            {isVisible_A  && (
+              <Text copyable className={styles.codeText}>  
+                {'这是一段文字'}           
+              </Text>                                  
+              )}                                       
+          </Flex>  
+          </Flex >      
+      </Flex>                                       
+    </ConfigProvider>  
+  );  
+};  
+  
+export default () => <FormDisabledDemo />;`}           
+              </Text>                                  
+              )}                                       
+          </Flex>
+          
+
+
+          </Flex > 
+          <Flex  gap="small"  vertical className={styles.flexborder}>
+          <Form name="trigger" style={{ maxWidth: 600 }} layout="vertical" autoComplete="off">
+          <Alert message="使用'最大'规则，继续输入字符查看结果" />
+          <Form.Item
+      hasFeedback
+      label="Field A"
+      name="field_a"
+      validateTrigger="onBlur"
+      rules={[{ max: 3 }]}
+    >
+      <Input placeholder="Validate required onBlur" />
+    </Form.Item>
+    
+    <Form.Item
+      hasFeedback
+      label="Field B"
+      name="field_b"
+      validateDebounce={1000}
+      rules={[{ max: 3 }]}
+    >
+      <Input placeholder="Validate required debounce after 1s" />
+    </Form.Item>
+
+    <Form.Item
+      hasFeedback
+      label="Field C"
+      name="field_c"
+      validateFirst
+      rules={[{ max: 6 }, { max: 3, message: 'Continue input to exceed 6 chars' }]}
+    >
+      <Input placeholder="Validate one by one" />
+    </Form.Item>
+    </Form>     
+            <Flex gap="small" wrap="wrap" >
+                <Button style={{margin:'24px 0 0  0'}} onClick={() => toggleDiv('isVisible_D')}>显示代码</Button>                
+                {isVisible_D && (
+                  <Text copyable className={styles.codeText}>  
+                {`
+import styles from '../layouts/index.less'; 
+import {
+  Flex,
+  ConfigProvider,
+  Typography,
+  Button,
+  Space,
+  Cascader,
+  Checkbox,
+  ColorPicker,
+  DatePicker,
+  Form,
+  Input,
+  InputNumber,
+  Radio,
+  Select,
+  Slider,
+  Switch,
+  TreeSelect,
+  Upload,
+  Alert,
+} from 'antd';  
+import { PoweroffOutlined } from '@ant-design/icons';
+import React, { useState } from 'react';
+import {theme} from '../layouts/index' //公共样式引入
+const { Paragraph, Text, Link } = Typography;
+
+
+
+const App: React.FC = () => {  
+  const [isVisible_A, setIsVisible_A] = useState(false);
+
+
+  const toggleDiv = (div:string) => {  
+    if(div === 'isVisible'){      
+      setIsVisible_A(!isVisible_A);
+    }            
+  }; 
+  return (  
+    <ConfigProvider theme={theme} >
+     
+      <Flex gap="small" vertical >
+          <Flex  gap="small" vertical className={styles.flexborder}>
+          <Form name="trigger" style={{ maxWidth: 600 }} layout="vertical" autoComplete="off"> 
+          <Alert message="这里是一段Alert" />
+          <Form.Item
+      hasFeedback
+      label="Field A"
+      name="field_a"
+      validateTrigger="onBlur"
+      rules={[{ max: 3 }]}
+    >
+      <Input placeholder="Validate required onBlur" />
+    </Form.Item>
+
+    <Form.Item
+      hasFeedback
+      label="Field B"
+      name="field_b"
+      validateDebounce={1000}
+      rules={[{ max: 3 }]}
+    >
+      <Input placeholder="Validate required debounce after 1s" />
+    </Form.Item>
+
+    <Form.Item
+      hasFeedback
+      label="Field C"
+      name="field_c"
+      validateFirst
+      rules={[{ max: 6 }, { max: 3, message: 'Continue input to exceed 6 chars' }]}
+    >
+      <Input placeholder="Validate one by one" />
+    </Form.Item>
+            <Flex gap="small" wrap="wrap" >
+                <Button style={{margin:'24px 0 0  0'}} onClick={() => toggleDiv('isVisible_A')}>显示代码</Button>                
+                {isVisible_A && (
+                  <Text copyable className={styles.codeText}>  
+                {'这是一段文字'}               
+                  </Text>                                  
+                  )}                                                                                   
+            </Flex> 
+            </Form> 
+          </Flex >            
+      </Flex>                                       
+    </ConfigProvider>  
+  );  
+};  
+  
+export default App;`}               
+                  </Text>                                  
+                  )}                                                                                   
+            </Flex>  
+          </Flex >     
       </Flex>                                       
     </ConfigProvider>  
   );  
