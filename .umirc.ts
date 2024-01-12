@@ -1,10 +1,14 @@
+/* npx umi g page tabs
+src/pages/tabs.tsx
+src/pages/tabs.less */
+
 import { defineConfig } from "umi";
 
 export default defineConfig({
   routes: [
 
-    { path: "/", component: "index", name: "home" },
-    
+    { path: "/", component: "index", name: "home 首页" },
+
     { path: "/font", component: "font", name: "Font 文字版式" },
 
     { path: "/color", component: "color", name: "Color 颜色" },
@@ -15,7 +19,9 @@ export default defineConfig({
 
     { path: "/pagination", component: "pagination", name: "Pagination 分页" },
 
-    { path: "/form", component: "form", name: "form 表单" },    
+    { path: "/form", component: "form", name: "form 表单" }, 
+
+    { path: "/tabs", component: "tabs", name: "tabs 切换" },  
 
     { path: "/products", component: "products", name: "products" },
     

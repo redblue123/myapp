@@ -2,6 +2,7 @@
 import styles from '../layouts/index.less';  
 import { Button, Flex, ConfigProvider, Space, Typography, message } from 'antd';  
 import { CopyOutlined  } from '@ant-design/icons';
+import {theme} from '../layouts/index' //公共样式引入
 import React, { useState, useEffect } from 'react';
 import hljs from '../../libs/highlight/highlight.js';  
 import '../../libs/highlight/styles/panda-syntax-light.css'; 
@@ -75,23 +76,9 @@ const App: React.FC = () => {
 export default App;     
 `
 const App: React.FC = () => {  
-  const theme = {  
-    token: {  
-      colorPrimary: '#6C1E1E',  
-      borderRadius: 2,  
-      colorLink: '#6C1E1E',              
-    },  
-  };
 
-  /* 
-  useState 钩子来管理代码块的显示状态
-  类型-> 显示代码
-  toggleDiv函数来切换对应代码块的状态
-  onClick调用toggleDiv这个函数分别传值作为参数,每个按钮就分别控制了对应的代码块的显示和隐藏
-  */
   const [isVisible, setIsVisible] = useState(false);
   const [isVisible_A, setIsVisible_A ] = useState(false);
-
   const [isHighlighted, setIsHighlighted] = useState(false);
   const toggleDiv = (div:string) => {  
     if(div === 'isVisible'){      

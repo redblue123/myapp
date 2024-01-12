@@ -6,10 +6,8 @@ import React, { useState, useEffect } from 'react';
 import {theme} from '../layouts/index' //公共样式引入
 const { Paragraph, Text, Link } = Typography;
 
-//这里引入了高亮代码的样式和组件库 highlight.js
 import hljs from '../../libs/highlight/highlight.js';  
 import '../../libs/highlight/styles/panda-syntax-light.css'; 
- 
 
 
 const codeString = `
@@ -54,14 +52,12 @@ const App: React.FC = () => {
 };  
   
 export default App;`;  
-
 const codeString_A = `
 <Flex gap="small" wrap="wrap" >               
     <Button type="primary" size="large">大尺寸</Button> 
     <Button type="primary" size="middle">中尺寸</Button> 
     <Button type="primary" size="small">小尺寸</Button>               
 </Flex > `;
-
 const codeString_B = `
 <Flex gap="small" wrap="wrap" >               
     <Button type="primary" icon={<PoweroffOutlined />}>图标按钮</Button>
@@ -70,8 +66,6 @@ const codeString_B = `
 </Flex >`;
 
 const App: React.FC = () => {  
-  
-
   /* 
   useState 钩子来管理代码块的显示状态
   类型-> 显示代码
