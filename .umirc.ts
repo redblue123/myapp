@@ -9,7 +9,7 @@ export default defineConfig({
 
     { path: "/", component: "index", name: "home 首页" },
 
-    { path: "/font", component: "font", name: "Font 文字版式" },
+    { path: "/font", component: "font", name: "Font 文字" },
 
     { path: "/color", component: "color", name: "Color 颜色" },
 
@@ -21,11 +21,14 @@ export default defineConfig({
 
     { path: "/form", component: "form", name: "form 表单" }, 
 
-    { path: "/tabs", component: "tabs", name: "tabs 切换" },  
+    { path: "/tabs", component: "tabs", name: "tabs 切换" }, 
+
+    { path: "/modal", component: "modal", name: "Modal 对话框" }, 
+
+    { path: "/input", component: "input", name: "Input 输入框" },
 
     { path: "/products", component: "products", name: "products" },
     
-    { path: "/input", component: "input", name: "input" },
 
     { path: "/test", component: "test", name: "test 测试" },
 

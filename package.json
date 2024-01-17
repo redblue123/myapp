@@ -13,6 +13,7 @@
     "@ant-design/pro-layout": "^7.17.16",
     "antd": "^5.12.4",
     "axios": "^1.6.2",
+    "react-draggable": "^4.4.6",
     "react-query": "^3.39.3",
     "umi": "^4.0.90"
   },
