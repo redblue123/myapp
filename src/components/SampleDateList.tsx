@@ -1,35 +1,40 @@
 import React from 'react';  
 import { Button, Popconfirm, Table } from 'antd';  
   
-type Product = {
+type SampleDate = {
   id: string;
-  name: string;
-  字段类型:string;
+  数据表名: string;
+  数据库名:string;
+  表中文名:string;
 };
   
-type Products = Product[];  
+type SampleDates = SampleDate[];  
   
-type ProductListProps = {  
+type SampleDateListProps = {  
   onDelete: (id: string) => void;  
-  products: Products;  
+  sampleDate: SampleDates;  
 };  
   
-const ProductList: React.FC<ProductListProps> = ({  
+const SampleDateList: React.FC<SampleDateListProps> = ({  
   onDelete,  
-  products,  
+  sampleDate,  
 }) => {  
   const columns = [  
     {  
-      title: 'Name',  
-      dataIndex: 'name',
+      title: '数据表名',  
+      dataIndex: '数据表名',
     },
     {  
-      title: '字段类型',  
-      dataIndex: '字段类型',
-    },   
+      title: '数据库名',  
+      dataIndex: '数据库名',
+    },
+    {  
+      title: '表中文名',  
+      dataIndex: '表中文名',
+    },    
     {  
       title: '操作',  
-      render(text: string, record: Product) {  
+      render(text: string, record: SampleDate) {  
           
         return (
            // 使用Popconfirm组件创建一个确认框，标题为“Delete?”。当用户点击“Delete”按钮时，它会调用onDelete回调函数并传递当前记录的ID作为参数。  
@@ -40,7 +45,7 @@ const ProductList: React.FC<ProductListProps> = ({
       },  
     },  
   ];  
-  return <Table rowKey="id" dataSource={products} columns={columns} />;  
+  return <Table rowKey="id" dataSource={sampleDate} columns={columns} />;  
 };  
   
-export default ProductList;
+export default SampleDateList;

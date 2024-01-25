@@ -2,7 +2,7 @@ import styles from '../layouts/index.less';
 import React from 'react';
 import { Divider, Typography,Flex,ConfigProvider,Card } from 'antd';
 import {theme} from '../layouts/index' //公共样式引入
-
+// import { useHistory } from 'react-router-dom'; 
 
 const { Title, Paragraph, Text, Link } = Typography;
 
@@ -64,16 +64,19 @@ return (
   <Flex gap="small" vertical >
     <Flex  gap="small" vertical className={styles.flexborder}>
       <Flex gap="small" wrap="wrap"  > 
-        <Card title="通用">
-          <Card.Grid style={gridStyle}>Font 文字</Card.Grid>
-          <Card.Grid hoverable={false} style={gridStyle}>
-            Content
+        <Card title="通用" >
+          <Card.Grid style={gridStyle}><Link href="/font">Font 文字</Link></Card.Grid>
+          <Card.Grid style={gridStyle}>
+          <Link href="/color">Color 颜色</Link>
           </Card.Grid>
-          <Card.Grid style={gridStyle}>Content</Card.Grid>
-          <Card.Grid style={gridStyle}>Content</Card.Grid>
-          <Card.Grid style={gridStyle}>Content</Card.Grid>
-          <Card.Grid style={gridStyle}>Content</Card.Grid>
-          <Card.Grid style={gridStyle}>Content</Card.Grid>
+          <Card.Grid style={gridStyle}><Link href="/button">Button 按钮</Link></Card.Grid>
+          <Card.Grid style={gridStyle}><Link href="/flex">Flex 布局</Link></Card.Grid>
+          <Card.Grid style={gridStyle}><Link href="/pagination">Pagination 分页</Link></Card.Grid>
+          <Card.Grid style={gridStyle}><Link href="/form">Form 表单</Link></Card.Grid>
+          <Card.Grid style={gridStyle}><Link href="/tabs">Tabs 切换</Link></Card.Grid>
+          <Card.Grid style={gridStyle}><Link href="/modal">Modal 对话框</Link></Card.Grid>
+          <Card.Grid style={gridStyle}><Link href="/input">Input 输入框</Link></Card.Grid>
+
         </Card>
 
 

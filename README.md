@@ -71,5 +71,148 @@ john.greet(); // 输出: Hello, my name is John and I'm 30 years old.
 Person.printMaxAge(10, 20); // 输出: 20
 
 
- -->
- 
+ -->forEach
+
+ <!-- import styles from '../layouts/index.less';  
+import { Button, Flex, ConfigProvider, Space, Typography, Modal, Form, Input, Checkbox} from 'antd';  
+import {theme} from '../layouts/index' //公共样式引入
+import React, { useState} from 'react';
+import hljs from '../../libs/highlight/highlight.js';  
+import '../../libs/highlight/styles/panda-syntax-light.css'; 
+const { Title, Paragraph, Text, Link } = Typography;
+
+//---
+
+const App: React.FC = () => {
+  const initialStates: [string, boolean][] = [  
+    ['isVisible', false],  
+    ['isVisible_A', false],  
+    ['isVisible_B', false]  
+  ];  
+    
+  initialStates.forEach(([stateName, initialValue]) => {  
+    const [value, setValue] = useState<boolean | undefined>(initialValue);  
+      
+    // 你可以在这里添加一些逻辑来使用这些状态变量，例如：  
+    console.log(`${stateName}: ${value}`);  
+  });
+  return (
+    <ConfigProvider theme={theme}>
+
+    <Flex gap="small" vertical >
+      <Flex  gap="small" vertical className={styles.flexborder}>
+        <Flex gap="small" wrap="wrap"  > 
+          <Input placeholder="请输入" /> 
+
+
+        </Flex>
+      </Flex>
+    </Flex>
+
+    </ConfigProvider> 
+  );
+};
+
+export default App; 
+
+//--
+
+let listOfNames: string[] = ['name1', 'name2', 'name3'];
+let obj = {};
+
+for (let i = 0; i < listOfNames.length; i++) {
+    let propertyName = listOfNames[i];
+    obj[propertyName] = 'Some value for ' + propertyName;
+}
+
+console.log(obj); // 输出: { name1: 'Some value for name1', name2: 'Some value for name2', name3: 'Some value for name3' }
+
+//--
+  const ArraySetVis: string[] = [];  
+  const ArrayVisible: string[] = [];  
+  let obj: { [key: string]: string } = {}; // 初始化为空对象  
+  for (let i = 0; i < 4; i++) {  
+    ArrayVisible.push('isVisible' + i);  
+    obj[ArrayVisible[i]] = 'some value'; // 添加了值  
+    ArraySetVis.push('SitIsVisible' + i);  
+  }  
+  console.log(obj); // 输出 { isVisible0: 'some value', isVisible1: 'some value', isVisible2: 'some value' }
+
+//--
+
+const f = (shouldInitialize: boolean) => {  
+  let x; // 先声明x  
+  if (shouldInitialize) {  
+    x = 10; // 然后在需要时赋值  
+  }  
+  return x; // 现在应该可以正确返回x的值了  
+};
+
+//--
+
+// 声明一个立即执行的函数表达式  
+(function() {  
+  // 定义一个私有变量  
+  var privateVariable = "private";  
+  
+  // 定义一个私有函数  
+  function privateFunction() {  
+    console.log("This is a private function.");  
+  }  
+  
+  // 定义一个公开的接口，用于访问私有变量和函数  
+  var publicInterface = {  
+    getPrivateVariable: function() {  
+      return privateVariable;  
+    },  
+    callPrivateFunction: function() {  
+      privateFunction();  
+    }  
+  };  
+  
+  // 返回公开接口，以便在外部使用  
+  return publicInterface;  
+})();  
+  
+// 使用返回的公开接口  
+var myObject = window.myObject || {}; // 确保 myObject 存在  
+myObject.getPrivateVariable = myObject.getPrivateVariable || publicInterface.getPrivateVariable;  
+myObject.callPrivateFunction = myObject.callPrivateFunction || publicInterface.callPrivateFunction;  
+  
+// 测试代码  
+console.log(myObject.getPrivateVariable()); // 输出 "private"  
+myObject.callPrivateFunction(); // 输出 "This is a private function."
+
+//-- 列表中传入api
+
+import React from 'react';  
+import { useEffect, useState } from 'react';  
+  
+interface Person {  
+  name: string;  
+  age: number;  
+  occupation: string;  
+}  
+  
+const ListComponent: React.FC = () => {  
+  const [data, setData] = useState<Person[]>([]);  
+  
+  useEffect(() => {  
+    fetch('/api/data') // 假设这是一个返回 Person[] 的 API  
+      .then(response => response.json())  
+      .then(people => setData(people))  
+      .catch(error => console.error('Error:', error));  
+  }, []); // 仅在组件挂载时运行一次  
+  
+  return (  
+    <ul>  
+      {data.map((person, index) => (  
+        <li key={index}>Name: {person.name}, Age: {person.age}, Occupation: {person.occupation}</li>  
+      ))}  
+    </ul>  
+  );  
+};  
+  
+export default ListComponent;
+
+//--
