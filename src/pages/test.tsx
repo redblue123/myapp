@@ -1,83 +1,36 @@
-// import styles from '../layouts/index.less'; 
-// import { Button, Flex, ConfigProvider, Typography } from 'antd';  
-// import { PoweroffOutlined } from '@ant-design/icons';
-// import React, { useState } from 'react';
-// import {theme} from '../layouts/index' //公共样式引入
-// const { Paragraph, Text, Link } = Typography;
 
-// const App: React.FC = () => {  
-//   type RequestState =
-//   | { status: 'idle' }
-//   | { status: 'loading' }
-//   | { status: 'success', data: any }
-//   | { status: 'error', error: Error };
+import styles from '../layouts/index.less'; 
+import { Divider, Typography,Flex,ConfigProvider,Card, Space , Tooltip,Avatar} from 'antd';
+import {theme} from '../layouts/index' //公共样式引入
 
-// const [requestState, setRequestState] = useState<RequestState>({ status: 'idle' });
-// console.log(requestState)
+import '../../libs/highlight/styles/panda-syntax-light.css'; 
+import HomeCard from '@/components/Card/HomeCard';
+import homeicon1 from '@/assets/homeicon/homeicon1.svg'
+import homeicon2 from '@/assets/homeicon/homeicon2.svg'
 
-//   return (  
-    
-//     <ConfigProvider theme={theme}>  
-//       <Flex gap="small" vertical >
-//         <Flex  gap="small" vertical className={styles.flexborder}>           
-//           <Flex gap="small" wrap="wrap" >               
-//             <Button type="primary">主要按钮</Button>  
-//             <Button>默认按钮</Button>  
-//             <Button type="dashed">虚线按钮</Button>  
-//             <Button type="text">文字按钮</Button>  
-//             <Button type="link">链接按钮</Button>              
-//           </Flex >                 
-                                              
-//         </Flex>
-//       </Flex>                                       
-//     </ConfigProvider>  
-//   );  
-// };  
-  
-// export default App;
 
-import styles from '../layouts/index.less';   
-import { Button, Flex, ConfigProvider, Typography } from 'antd';    
-import { PoweroffOutlined } from '@ant-design/icons';  
-import React, { useState } from 'react';  
-import {theme} from '../layouts/index' //公共样式引入  
-const { Paragraph, Text, Link } = Typography;  
-  
-const App: React.FC = () => {    
-  
-const f = (shouldInitialize: boolean)=>{  
-  let tuple:[number, string, boolean] = [7,'ssr', true];
-  let [a, b, c] = tuple;
-  let x = 0; // 声明并初始化x  
-  if(shouldInitialize){  
-    //  x = 10; 
 
+const App: React.FC = () => {  
+
+  return (
       
-  }
-  return tuple;   
-  
-}
+    <ConfigProvider theme={theme}>  
+<Flex gap="small"  vertical className={styles.flexborder}>
+  <Space >
+  <Flex gap="small" wrap="wrap" >
+  <HomeCard title = '数据查询分析OnePage' description='高度整合数据库表、API数据服务等内部数据，支持通过表名、数据表内容标...' Tooltiptitle='高度整合数据库表、API数据服务等内部数据，支持通过表名、数据表内容标签、API说明、API出参等维度高效检索数据，提升用户触达，解决用户找数难的问题 ' icon={homeicon1}
+  ></HomeCard>
+  <HomeCard title = '企查查' description='高度整合数据库表、API数据服务等内部数据，支持通过表名、数据表内容标...' Tooltiptitle='高度整合数据库表、API数据服务等内部数据，支持通过表名、数据表内容标签、API说 '  icon={homeicon2}
+  ></HomeCard>
+
  
 
-const m = () => {  
-  f(true); // 调用函数f  
-  console.log(f(true))
-
-}; 
-f(false) // 返回undefined，因为shouldInitialize为false，x没有被赋值  
-  return (    
-      
-    <ConfigProvider theme={theme}>    
-      <Flex gap="small" vertical >  
-        <Flex  gap="small" vertical className={styles.flexborder}>             
-          <Flex gap="small" wrap="wrap" >                 
-            <Button type="primary" onClick={m}>主要按钮</Button>   
-          </Flex >                   
-                                                
-        </Flex>  
-      </Flex>                                         
-    </ConfigProvider>    
-  );    
-};    
+    </Flex>
     
+  </Space> 
+</Flex> 
+</ConfigProvider>                                        
+  );  
+}; 
+  
 export default App;
