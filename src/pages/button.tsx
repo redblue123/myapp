@@ -132,7 +132,7 @@ const App: React.FC = () => {
           <li>链接按钮：一般用于链接，即导航至某位置。</li>  
         </ul>  
 
-        <h2>样式展示</h2>  
+        <h2>样式展示</h2> 
         <h3>类型</h3> 
         <Flex  gap="small" vertical className={styles.flexborder}>           
           <Flex gap="small" wrap="wrap" >               

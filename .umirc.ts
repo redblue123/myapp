@@ -9,6 +9,8 @@ export default defineConfig({
 
     { path: "/", component: "index", name: "home 首页" },
 
+    { path: "/banner", component: "banner", name: "Banner 头图" },
+
     { path: "/font", component: "font", name: "Font 文字" },
 
     { path: "/color", component: "color", name: "Color 颜色" },

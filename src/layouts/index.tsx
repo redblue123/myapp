@@ -1,7 +1,7 @@
 import * as React from 'react';  
 import { ProLayout } from '@ant-design/pro-layout';
 import { Link, Outlet, useAppData, useLocation } from 'umi';  
-import SmileUrl, { ReactComponent as SvgSmile } from '../../public/logo.svg'; 
+import SmileUrl, { ReactComponent as SvgSmile } from '../../src/assets/logo.svg'; 
 
 // 定义一个类型来匹配您的主题对象结构  
 export const theme = {  

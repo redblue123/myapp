@@ -1,0 +1,34 @@
+.carousel {  
+    position: relative;  
+    width: 1280px;  
+    height: 300px;  
+    overflow: hidden;  
+    
+    img {  
+      width: 100%;  
+      height: auto;  
+    }  
+    
+    .carouselButtons {  
+      position: absolute;  
+      bottom: 10px;  
+      left: 50%;  
+      transform: translateX(-50%);  
+      display: flex;  
+    
+      .carouselButton {  
+        margin: 0 5px;  
+        padding: 4px 16px;  
+        background-color: #bd3939;  
+        border: none;  
+        cursor: pointer;  
+    
+        &:hover {  
+          background-color: #813737;  
+        }
+      }
+      .carouselButton.active{
+        background-color: aliceblue;
+      }  
+    }  
+  }
