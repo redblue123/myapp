@@ -2,16 +2,17 @@ import React from 'react';
 import axios from 'axios';
 import { useMutation, useQuery, useQueryClient } from 'umi';
 import styles from '../layouts/index.less'; 
-import { Button, Flex, ConfigProvider, Typography } from 'antd';  
+import {  Flex, ConfigProvider} from 'antd';  
 import SampleDateList from '@/components/Table/SampleDateList';
 import TagsDataList from '@/components/Table/TagsDateList';
-import { PoweroffOutlined } from '@ant-design/icons';
 import {theme} from '../layouts/index' //公共样式引入
-const { Paragraph, Text, Link } = Typography;
 
+// const App: React.FC = () => { ... }: 定义一个名为App的函数式组件。
 const App: React.FC = () => {  
   const queryClient = useQueryClient();
+  // 使用 useQuery 发起一个 HTTP GET 请求 ,从 /api/sampleDate 路径获取数据
   const sampleDateQuery = useQuery(['sampleDate'], {
+    // queryFn: 一个返回 Promise 的函数，通常用于发起 HTTP 请求
     queryFn() {
       return axios.get('/api/sampleDate').then((res) => res.data);
     },

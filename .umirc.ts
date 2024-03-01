@@ -34,6 +34,8 @@ export default defineConfig({
     { path: "/table", component: "table", name: "table 表格" },
 
     { path: "/products", component: "products", name: "products" },
+
+    { path: "/chart", component: "chart", name: "chart图表" },
   
     { path: "/test", component: "test", name: "test 测试" },
 

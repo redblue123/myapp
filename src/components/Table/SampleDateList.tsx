@@ -3,7 +3,8 @@ import { Button, Popconfirm, Table, Typography } from 'antd';
 import { Space, Tag } from 'antd';
 import type { TableProps } from 'antd';
 const { Text, Link } = Typography;
-  
+
+// 声明数据类型
 type SampleDate = {
   key: string;
   数据表名: string;

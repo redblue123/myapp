@@ -1,53 +1,101 @@
+import React, { useRef, useEffect } from 'react';  
+import * as d3 from 'd3';  
+ 
+const App: React.FC = () => {  
+  interface Project {  
+    x: number;   
+    y: number;
+  } 
 
-import styles from '../layouts/index.less'; 
-import { Divider, Typography,Flex,ConfigProvider,Card, Space , Tooltip,Avatar} from 'antd';
-import {theme} from '../layouts/index' //公共样式引入
+  // 饼图数据  
+  const data: Datum[] = [  
+    { label: '数据1', value: 30 },  
+    { label: '数据2', value: 45 },  
+    { label: '数据3', value: 10 },
+    { label: '数据4', value: 15 },
+    { label: '数据5', value: 15 },
+    { label: '数据6', value: 15 },  
+  ];  
 
-import '../../libs/highlight/styles/panda-syntax-light.css'; 
-import HomeCard from '@/components/Card/HomeCard';
-import homeicon1 from '@/assets/homeicon/homeicon1.svg'
-import homeicon2 from '@/assets/homeicon/homeicon2.svg'
-import TempButton from '@/components/Button/TempButton';
-import PortalCarousel from '@/components/Carousel/PortalCarousel';
-import banner1 from '@/assets/banner/banner1.svg'
-import banner2 from '@/assets/banner/banner2.svg'
-import banner3 from '@/assets/banner/banner3.svg'
+  // 声明图标的尺寸和边距  
+  const width = 640;  
+  const height = 400;  
+  const margin = { top: 20, right: 20, bottom: 30, left: 40 };  
 
+    // 饼图布局  
+    const pie = d3.pie<Datum>() 
+    .padAngle(1 / 50) 
+    .sort(null)  
+    .value(d => d.value);  
 
-
-const App: React.FC = () => { 
-  const images = [
-    banner1,
-    banner2,
-    banner3,
-  ] 
-
-  return (
-      
-    <ConfigProvider theme={theme}>  
-<Flex gap="small"  vertical className={styles.flexborder}>
-  <Space >
-  <Flex gap="small" wrap="wrap" >
-  <HomeCard title = '数据查询分析OnePage' description='高度整合数据库表、API数据服务等内部数据，支持通过表名、数据表内容标...' Tooltiptitle='高度整合数据库表、API数据服务等内部数据，支持通过表名、数据表内容标签、API说明、API出参等维度高效检索数据，提升用户触达，解决用户找数难的问题 ' icon={homeicon1}
-  ></HomeCard>
-  <HomeCard title = '企查查' description='高度整合数据库表、API数据服务等内部数据，支持通过表名、数据表内容标...' Tooltiptitle='高度整合数据库表、API数据服务等内部数据，支持通过表名、数据表内容标签、API说 '  icon={homeicon2}
-  ></HomeCard>
-  <TempButton
-  ></TempButton>
-
-    </Flex>
+    // SVG元素引用
+    const svgRef = useRef<SVGSVGElement>(null); 
     
-  </Space> 
-</Flex> 
-</ConfigProvider>                                        
+  useEffect(() => {  
+    if (svgRef.current) {
+      const svg = d3.select(svgRef.current); 
+
+      // 计算饼图的半径  
+      const radius = Math.min(width - margin.left - margin.right, height - margin.top - margin.bottom) / 2;  
+
+      // 创建弧生成器  
+      const arc = d3.arc()  
+        .outerRadius(radius  - 10)  
+        .innerRadius(100); 
+
+      // 设置圆心点位置  
+      const centerX = width / 2;  
+      const centerY = height / 2;
+      const pieColor = 'rgba(110, 30, 30,' 
+
+      // 创建颜色比例尺  
+      const color = d3.scaleOrdinal<Datum, string>()  
+        .domain(data.map(d => d.label))  
+        .range(['rgba(110, 30, 30, 0.65)','rgba(110, 30, 30, 0.35)', 'rgba(110, 30, 30, 0.25)', '#6b486b', '#a05d56', '#d0743c', '#ff8c00']); 
+
+      // 创建饼图组  
+      const pieGroup = svg.append('g')  
+      .attr('class', 'pie-group')  
+      .attr('transform', `translate(${width / 2}, ${height / 2})`); // 将组定位到圆心        
+      
+      // 绘制饼图  
+      pieGroup.selectAll('.arc')  
+        .data(pie(data))  
+        .enter()  
+        .append('path')  
+        .attr('class', 'arc')  
+        .attr('d', arc)  
+        .attr('fill', d => color(d.data.label)) 
+
+      // 添加一个组来容纳所有的标签  
+      const labelGroup = svg.append('g')  
+        .attr('class', 'label-group')  
+        .attr('transform', `translate(${centerX}, ${centerY})`); // 将组定位到圆心  
+
+      // 添加文本标签到组中  
+      labelGroup.selectAll('.label')  
+        .data(pie(data))  
+        .enter()  
+        .append('text')  
+        .attr('class', 'label')  
+        .attr("transform", d => {  
+          // 计算标签的位置  
+          const centroid = arc.centroid(d);  
+          return `translate(${centroid[0]}, ${centroid[1]})`;  
+        })  
+        .text(d => d.data.label); // 显示扇形的标签  
+
+      // 将饼图移动到指定的圆心位置  
+      // svg.selectAll('*').attr('transform', `translate(${centerX}, ${centerY})`);
+    }  
+  }, [svgRef, width, height]); // 确保当 projectData 变化时重新渲染  
+  
+  return (  
+    
+    <svg ref={svgRef} width={width} height={height}>  
+      <g transform={`translate(${margin.left},${margin.top})`} />  
+    </svg>   
   );  
-}; 
+};  
   
 export default App;
-
-
-//---
-
-
-
-
