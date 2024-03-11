@@ -2,15 +2,28 @@
 
 
 import React, { useRef, useEffect } from 'react';  
-import * as d3 from 'd3';  
+import * as d3 from 'd3'; 
+
+interface Project {  
+  x: number;   
+  y: number;
+  label: string;  
+} 
+
+interface LineChartCurve{
+title?: string;
+discription?:string;
+Project:Project[];
+} 
  
 
-const App: React.FC = () => {  
-  interface Project {  
-    x: number;   
-    y: number;
-    label: string;  
-  } 
+const App: React.FC<LineChartCurve> = ({
+  title = '默认标题',  
+  discription = '默认描述',  
+  Project = [], // 为 pieData 提供一个空数组作为默认值  
+
+}) => { 
+
   const svgRef = useRef<SVGSVGElement>(null); 
 
   const projectData: Project[] = [  
@@ -58,7 +71,7 @@ const App: React.FC = () => {
         .call(yAxis); 
 
       // 创建折线图  
-      const line = d3.line()  
+      const line = d3.line<Project>()  
         .x(d => xScale(d.x))  
         .y(d => yScale(d.y))  
         .curve(d3.curveCardinal);  
@@ -82,8 +95,11 @@ const App: React.FC = () => {
   }, [svgRef, width, height]); // 确保当 projectData 变化时重新渲染  
   
   return (  
-    
-    <svg ref={svgRef} width={width} height={height} />  
+    <div style={{position: 'relative', width: '100%', height: '100%' ,textAlign:'center'}}>
+    <h3 style={{ margin:'0'}}>{title}</h3>
+    <h4 style={{ margin:'0'}}>{discription}</h4>
+    <svg ref={svgRef} width={width} height={height} /> 
+    </div>  
   );  
 };  
   

@@ -1,14 +1,24 @@
-
-
-
 import React, { useRef, useEffect } from 'react';  
-import * as d3 from 'd3';  
-  
-const App: React.FC = () => {  
-  interface Project {  
-    name: string;  
-    value: number;  
-  }  
+import * as d3 from 'd3';
+
+interface valueData{
+  date: Date ;
+  value: number;
+}
+
+interface BandChartMonthProps {
+
+  title?: string;
+  discription?:string;
+  dataData:valueData[];
+}
+
+const App: React.FC<BandChartMonthProps> = ({
+  title = '默认标题',  
+  discription = '默认描述',  
+  dataData = [], // 为 projectData 提供一个空数组作为默认值  
+
+}) => {  
   const svgRef = useRef<SVGSVGElement>(null);  
   
   // 声明图标的尺寸和边距  
@@ -19,93 +29,99 @@ const App: React.FC = () => {
   const marginBottom = 30;  
   const marginLeft = 40;  
   
-  // 定义柱状图的数据  
-  const projectData= [  
-    { name: '穆迪', value: 23 },  
-    { name: '财汇', value: 100 },  
-    { name: 'MSCI', value: 30 },
-    { name: '启信宝', value: 64 },
-    { name: '同余', value: 30 },
-    { name: 'BBG', value: 84 },
-    { name: '上海寰擎', value: 14 },
-    { name: '外汇交易中心', value: 24 },
-    { name: '证通数据', value: 30 },
-    { name: 'WIND', value: 10 },   
-  ];  
-
-  // 计算每个柱形图之间的间距  
-  const barSpacing = (width - marginLeft - marginRight) / (projectData.length * 10); 
+  // 已通过请求响应数据的方式获取数据
+  // const dataData= [  
+  //   { date: new Date(2023, 0, 1), value: 20 },  
+  //   { date: new Date(2023, 1, 1), value: 40 },  
+  //   { date: new Date(2023, 2, 1), value: 30 },  
+  //   { date: new Date(2023, 3, 1), value: 50 },  
+  //   { date: new Date(2023, 4, 1), value: 20 },
+  //   { date: new Date(2023, 5, 1), value: 40 },
+  //   { date: new Date(2023, 6, 1), value: 30 },
+  //   { date: new Date(2023, 7, 1), value: 100 },
+  //   { date: new Date(2023, 8, 1), value: 20 },
+  //   { date: new Date(2023, 9, 1), value: 40 },
+  //   { date: new Date(2023, 10, 1), value: 30 },
+  //   { date: new Date(2023, 11, 1), value: 40 },
+  //   { date: new Date(2023, 12, 1), value: 20 },  
+  //   // ... 更多数据    
+  // ];  
   
-  // 每个柱形的宽度 
-  const bandWidth = (width-(projectData.length-1)* barSpacing)/projectData.length/2;
-
-// 生成一个包含每个柱形图 x 位置的数组  
-
-
-  const projectNames = projectData.map(d => d.name); 
-  const projecValue = projectData.map(d => d.value) ; 
-  const maxValue = projecValue.reduce((max, value) => Math.max(max, value || 0), 0); 
-console.log(barSpacing)
+  // 横轴  
+  const x = d3.scaleTime()  
+  .domain([new Date(2023, 0, 1).getTime(), new Date(2024, 0, 1).getTime()]) // 使用 getTime() 来获取时间戳  
+  .range([marginLeft, width - marginRight]);
   
+  // 纵轴  
+  const y = d3.scaleLinear()  
+  .domain([0, d3.max(dataData, (d) => d.value)!])    // 使用d3.max来获取value的最大值 
+  .range([height - marginBottom, marginTop]);
+
+    // 使用转换后的数据创建line生成器  
+    const lineGenerator = d3.line<valueData>()  
+    .x((d) => x(d.date)) // 使用 x 比例尺转换日期  
+    .y((d) => y(d.value)); // 使用 y 比例尺转换值  
+    
   useEffect(() => {  
-    if (svgRef.current) {  
-      const svg = d3.select(svgRef.current);  
-      
-      const x = d3.scaleBand()
-        .domain(projectNames)
-        .range([marginLeft, width - marginRight])
-        .paddingInner(0.1)
+    if (svgRef.current) { 
 
-      const y = d3.scaleLinear()
-      .domain([0,maxValue])
-      .range([height - marginBottom, marginTop]);
-
-      const barXPositions = projectData.map((_, index) => {  
-        return marginLeft + index * (barSpacing + x.bandwidth());  
-      });  
-
-      // 生成一条线
-      const lineGenerator = d3.line()  
-        .x(d => x(d.name) + bandWidth )   
-        .y(d => y(d.value) )  
-        // .curve(d3.curveCardinal);  // 平滑曲线
+      // Create the SVG container  
+      const svg = d3.select(svgRef.current)  
+        .attr("width", width)  
+        .attr("height", height);  
 
 
-      svg.append("g")
-      .attr("transform", `translate(0,${height - marginBottom})`) 
-      .call(d3.axisBottom(x))
-
+      // Add the x-axis  
       svg.append("g")  
-      .attr("transform", `translate(${marginLeft},0)`)  
-      .call(d3.axisLeft(y)); // 添加Y轴  
-      // console.log(projecValue)
+        .attr("transform", `translate(0,${height - marginBottom})`)  
+        .call(d3.axisBottom(x).ticks(d3.timeMonth.every(1))); // 设置 x 轴刻度为每月一个  
+  
+      // Add the y-axis  
+      svg.append("g")  
+        .attr("transform", `translate(${marginLeft},0)`)  
+        .call(d3.axisLeft(y));  
 
-      
-      // 添加数值标签  
-      svg.selectAll('.label')  
-        .data(projectData)  
-        .join('text')  
-        .attr('class', 'label')  
-        .attr('x', (d, i) => barXPositions[i]+ bandWidth)  // bandWidth每个柱形的宽度
-        .attr('y', (d) => y(d.value) - 20) // 稍微低于柱形顶部  
-        .attr('dy', '0.75em') // 垂直对齐  
-        .attr('text-anchor', 'middle') // 文本水平居中  
-        .text((d) => d.value); // 显示数值
+      // 添加柱形图
+      // svg.selectAll(".bar")  
+      //   .data(dataData)  
+      //   .join("rect")  
+      //   .attr("class", "bar")  
+      //   .attr("x", (d) => x(d.date))  
+      //   .attr("y", (d) => y(d.value))  
+      //   .attr("width", 16) // 设置柱形的宽度  x.bandwidth()
+      //   .attr("height", (d) => height - marginBottom - y(d.value)) // 设置柱形的高度  
+      //   .attr("fill", 'rgba(110, 30, 30, 0.75)'); // 设置柱形的填充颜色 
 
-        // 添加折线图路径
-        svg.append("path")  
-        .attr("d", lineGenerator(projectData))  
-        .attr("fill", "none")  
-        .attr("stroke",'#BE8C4A')  
-        .attr("stroke-width", 3);
+    // 添加数值标签  
+    svg.selectAll('.label')  
+      .data(dataData)  
+      .join('text')  
+      .attr('class', 'label')  
+      .attr('x', (d) => x(d.date)) // 柱形中心 x 坐标  
+      .attr('y', (d) => y(d.value) - 6) // 柱形顶部稍下方  
+      .attr('dy', '0.35em') // 垂直对齐  
+      .attr('text-anchor', 'middle') // 文本水平居中  
+      .text((d) => d.value); // 显示数值 
+console.log(lineGenerator)
+// 添加折线图路径  
+svg.append("path")    
+  .attr("d", lineGenerator(dataData)) // 直接调用 lineGenerator 并传入数据  
+  .attr("fill", "none")    
+  .attr("stroke", '#BE8C4A')    
+  .attr("stroke-width", 3);
 
-          
+      return () => {  
+        // Remove any event listeners or bindings here  
+      };  
     }  
-  }, [svgRef, width, height, projectData]); // 确保当 projectData 变化时重新渲染  
+  }, []); // Only run this effect once, on mount  
   
   return (  
-    
-    <svg ref={svgRef} width={width} height={height} />  
+    <div style={{position: 'relative', width: '100%', height: '100%' ,textAlign:'center'}}>
+    <h3 style={{ margin:'0'}}>{title}</h3>
+    <h4 style={{ margin:'0'}}>{discription}</h4>
+    <svg ref={svgRef} width={width} height={height} /> 
+    </div>  
   );  
 };  
   

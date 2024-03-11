@@ -1,8 +1,25 @@
 import React, { useRef, useEffect } from 'react';  
 import * as d3 from 'd3';
- 
-  
-const App: React.FC = () => {  
+
+interface valueData{
+  date: Date;
+  value: number;
+}
+
+interface BandChartMonthProps {
+
+  title?: string;
+  discription?:string;
+  icon?:any; 
+  dataData:valueData[];
+}
+
+const App: React.FC<BandChartMonthProps> = ({
+  title = '默认标题',  
+  discription = '默认描述',  
+  dataData = [], // 为 projectData 提供一个空数组作为默认值  
+
+}) => {  
   const svgRef = useRef<SVGSVGElement>(null);  
   
   // 声明图标的尺寸和边距  
@@ -12,6 +29,24 @@ const App: React.FC = () => {
   const marginRight = 20;  
   const marginBottom = 30;  
   const marginLeft = 40;  
+  
+  // 已通过请求响应数据的方式获取数据
+  // const dataData= [  
+  //   { date: new Date(2023, 0, 1), value: 20 },  
+  //   { date: new Date(2023, 1, 1), value: 40 },  
+  //   { date: new Date(2023, 2, 1), value: 30 },  
+  //   { date: new Date(2023, 3, 1), value: 50 },  
+  //   { date: new Date(2023, 4, 1), value: 20 },
+  //   { date: new Date(2023, 5, 1), value: 40 },
+  //   { date: new Date(2023, 6, 1), value: 30 },
+  //   { date: new Date(2023, 7, 1), value: 100 },
+  //   { date: new Date(2023, 8, 1), value: 20 },
+  //   { date: new Date(2023, 9, 1), value: 40 },
+  //   { date: new Date(2023, 10, 1), value: 30 },
+  //   { date: new Date(2023, 11, 1), value: 40 },
+  //   { date: new Date(2023, 12, 1), value: 20 },  
+  //   // ... 更多数据    
+  // ];  
   
   // 横轴  
   const x = d3.scaleTime()  
@@ -23,30 +58,14 @@ const App: React.FC = () => {
     .domain([0, 100])  
     .range([height - marginBottom, marginTop]);  
   
-  // 示例数据  
-  const data = [  
-    { date: new Date(2023, 0, 1), value: 20 },  
-    { date: new Date(2023, 1, 1), value: 40 },  
-    { date: new Date(2023, 2, 1), value: 30 },  
-    { date: new Date(2023, 3, 1), value: 50 },  
-    { date: new Date(2023, 4, 1), value: 20 },
-    { date: new Date(2023, 5, 1), value: 40 },
-    { date: new Date(2023, 6, 1), value: 30 },
-    { date: new Date(2023, 7, 1), value: 80 },
-    { date: new Date(2023, 8, 1), value: 20 },
-    { date: new Date(2023, 9, 1), value: 40 },
-    { date: new Date(2023, 10, 1), value: 30 },
-    { date: new Date(2023, 11, 1), value: 40 },
-    { date: new Date(2023, 12, 1), value: 20 },  
-    // ... 更多数据  
-  ];  
-  
   useEffect(() => {  
-    if (svgRef.current) {  
+    if (svgRef.current) { 
+
       // Create the SVG container  
       const svg = d3.select(svgRef.current)  
         .attr("width", width)  
         .attr("height", height);  
+
   
       // Add the x-axis  
       svg.append("g")  
@@ -60,7 +79,7 @@ const App: React.FC = () => {
   
       // Add the bars  
       svg.selectAll(".bar")  
-        .data(data)  
+        .data(dataData)  
         .join("rect")  
         .attr("class", "bar")  
         .attr("x", (d) => x(d.date))  
@@ -71,10 +90,10 @@ const App: React.FC = () => {
 
     // 添加数值标签  
     svg.selectAll('.label')  
-      .data(data)  
+      .data(dataData)  
       .join('text')  
       .attr('class', 'label')  
-      .attr('x', (d) => x(d.date) + 8) // 柱形中心 x 坐标  
+      .attr('x', (d) => x(d.date)) // 柱形中心 x 坐标  
       .attr('y', (d) => y(d.value) - 6) // 柱形顶部稍下方  
       .attr('dy', '0.35em') // 垂直对齐  
       .attr('text-anchor', 'middle') // 文本水平居中  
@@ -88,8 +107,11 @@ const App: React.FC = () => {
   }, []); // Only run this effect once, on mount  
   
   return (  
-    <svg ref={svgRef} width={width} height={height} />
-    
+    <div style={{position: 'relative', width: '100%', height: '100%' ,textAlign:'center'}}>
+    <h3 style={{ margin:'0'}}>{title}</h3>
+    <h4 style={{ margin:'0'}}>{discription}</h4>
+    <svg ref={svgRef} width={width} height={height} /> 
+    </div>  
   );  
 };  
   
