@@ -96,7 +96,7 @@ const App: React.FC<BandChartProps> = ({
   }, [svgRef, width, height]); // 确保当 projectData 变化时重新渲染  
   
   return (  
-    <div style={{position: 'relative', width: '100%', height: '100%' ,textAlign:'center'}}>
+    <div style={{textAlign:'center'}}>
     <h3 style={{ margin:'0'}}>{title}</h3>
     <h4 style={{ margin:'0'}}>{discription}</h4>
     <svg ref={svgRef} width={width} height={height} /> 

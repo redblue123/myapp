@@ -1,118 +1,225 @@
-// 图表框架
-import React, { useRef, useEffect } from 'react';  
-import * as d3 from 'd3';  
-interface valueData{
-  date: Date ;
-  value: number;
+
+import React, { useRef, useEffect, useState } from 'react';  
+import * as d3 from 'd3';
+
+interface Datum{
+  name:string;
+  value:number;
+
 }
+// 声明图标的尺寸和边距  
+const width = 640;  
+const height = 400;  
+const margin = { top: 20, right: 20, bottom: 30, left: 40 }; 
 
-interface BandChartMonthProps {
+  const pieData: Datum[]  = [  
+    { name: '穆迪', value: 10 },  
+    { name: '财汇', value: 100 },  
+    { name: 'MSCI', value: 30 },
+    { name: '启信宝', value: 64 },
+    { name: '同余', value: 120 },
+  ]; 
+ 
 
-  title?: string;
-  discription?:string;
-  icon?:any; 
-  dataData:valueData[];
-}
+  interface PieChartProps {
+    title?: string;
+    discription?:string;
+    icon?:any; 
+    pieData?:Datum[];
+  }
 
+const App: React.FC<PieChartProps> = ({
+    title = '默认标题',  
+    discription = '默认描述',  
+    // pieData = [], // 为 pieData 提供一个空数组作为默认值  
+}) => { 
+    const total = pieData.reduce((sum, d) => sum + d.value, 0);
 
-  const dataData: valueData[] = [  
-    { date: new Date(2023, 0, 1), value: 20 },  
-    { date: new Date(2023, 1, 1), value: 40 },  
-    { date: new Date(2023, 2, 1), value: 30 },  
-    { date: new Date(2023, 3, 1), value: 50 },  
-    { date: new Date(2023, 4, 1), value: 20 },
-    { date: new Date(2023, 5, 1), value: 40 },
-    { date: new Date(2023, 6, 1), value: 30 },
-    { date: new Date(2023, 7, 1), value: 100 },
-    { date: new Date(2023, 8, 1), value: 20 },
-    { date: new Date(2023, 9, 1), value: 40 },
-    { date: new Date(2023, 10, 1), value: 30 },
-    { date: new Date(2023, 11, 1), value: 40 },
-    { date: new Date(2023, 12, 1), value: 20 },  
-    // ... 更多数据  
-  ];  
+    // 计算所有数据的总和  
+    const totalSum = pieData.reduce((sum, d) => sum + d.value, 0);
 
+    const dataWithPercentages = pieData.map(d => ({  
+      ...d,  
+      percentage: Math.round((d.value / totalSum) * 100) // 计算百分比并四舍五入  
+    }));
 
-    const width = 640;  
-    const height = 400;  
-    const marginTop = 20;  
-    const marginRight = 20;  
-    const marginBottom = 30;  
-    const marginLeft = 40;  
-     
-// 转换函数，将Date转换为时间戳  
-// function convertDateToTimestamp(data: (Date | number)[][]): [number, number][] {  
-//   return data.map(([date, value]) => {  
-//     if (date instanceof Date) {  
-//       return [date.getTime(), value as number]; // 使用getTime()将Date转换为时间戳  
-//     } else {  
-//       return [date as number, value as number]; // 如果已经是数字，则直接返回  
-//     }  
-//   });  
-// }  
+    // 计算饼图的半径  
+    const radius = Math.min(width - margin.left - margin.right, height - margin.top - margin.bottom) / 2;  
 
-const App: React.FC<BandChartMonthProps>= () => {  
+    const [isHovering, setIsHovering] = useState<null | { name: string; percentage: string }>(null); 
+    const [hoverX, setHoverX] = useState(0);  
+    const [hoverY, setHoverY] = useState(0);
+    const [windowSize, setWindowSize] = useState({ width: window.innerWidth, height: window.innerHeight });  
 
-  const svgRef = useRef<SVGSVGElement>(null); 
-
-  const width = 960;  
-  const height = 500;  
+    // SVG元素引用
+    const svgRef = useRef<SVGSVGElement>(null); 
+    // hover后矩形
+    const tooltipRef = useRef<HTMLDivElement>(null); 
 
   useEffect(() => {  
     if (svgRef.current) {
-      const svg = d3.select(svgRef.current)
-      .attr("width", width)  
-      .attr("height", height);  
-      
-      const x = d3.scaleTime()  
-      .domain([new Date(2023, 0, 1), new Date(2024, 0, 1)])  
-      .range([marginLeft, width - marginRight]);
+      // 当执行handleResize的时候会使用setWindowSize函数来更新 windowSize 的状态
 
-      const y = d3.scaleLinear()  
-      .domain([0, d3.max(dataData, (d) => d.value)!])    // 使用d3.max来获取value的最大值 
-      .range([height - marginBottom, marginTop]);
+      const handleMouseMove = (event: MouseEvent) => { 
+        // 获取原始的clientX和clientY值  
+        const rawHoverX = event.clientX;  
+        const rawHoverY = event.clientY; 
+        // 根据窗口尺寸调整hoverX和hoverY的值  
+        if (windowSize.width > 640 && windowSize.height > 400) {  
+          setHoverX(rawHoverX - 300);  
+          setHoverY(rawHoverY - 100);  
+        } else {  
+          setHoverX(rawHoverX - 100);  
+          setHoverY(rawHoverY - 100);  
+        }  
+      };
 
-    // 使用转换后的数据创建line生成器  
-    const lineGenerator = d3.line<valueData>()  
-    .x((d) => x(d.date)) // 使用 x 比例尺转换日期  
-    .y((d) => y(d.value)); // 使用 y 比例尺转换值  
+      const handleMouseLeave = () => {  
+        setIsHovering(null);  
+      }
+
+      window.addEventListener('mousemove', handleMouseMove);  
+      window.addEventListener('mouseleave', handleMouseLeave);  
+
+      const handleResize = () =>{
+        setWindowSize({width:window.innerWidth, height:innerHeight});
+      }
+      // 这行代码向浏览器窗口的resize事件添加了一个事件监听器。每当浏览器窗口大小发生变化时，浏览器会自动调用handleResize函数，从而更新windowSize状态.
+      window.addEventListener('resize', handleResize)
+
+      // if (windowSize.width > 640 && windowSize.height > 400) {  
+      //   setHoverX(hoverX - 300);  
+      //   setHoverY(hoverY - 100);  
+      // }
+      const svg = d3.select(svgRef.current); 
+
+      const arc = d3.arc<d3.PieArcDatum<Datum>>() 
+      .innerRadius(radius)
+      .outerRadius(100) 
 
 
+    // 饼图布局  
+    const pie = d3.pie<Datum>() 
+    .padAngle(1 / 50) 
+    .sort(null)  
+    .value(d => d.value);  
 
-// 使用转换后的数据生成SVG路径字符串  
-// const pathString = lineGenerator(dataData);
 
-      svg.append("g")  
-        .attr("transform", `translate(0,${height - marginBottom})`)  
-        .call(d3.axisBottom(x).ticks(d3.timeMonth.every(1))); 
+      // 设置圆心点位置  
+      const centerX = width / 2;  
+      const centerY = height / 2;
+
+      // 创建颜色比例尺  
+      const color = d3.scaleOrdinal<string>()  
+        .domain(pieData.map(d => d.name))  
+        .range(['rgba(110, 30, 30, 0.65)','rgba(110, 30, 30, 0.35)', 'rgba(110, 30, 30, 0.25)', '#6b486b', '#a05d56', '#d0743c', '#ff8c00']); 
+
+      // 计算饼图的布局  
+      const pieLayout = pie(dataWithPercentages);   
+
+      // 创建饼图组  
+      const pieGroup = svg.append('g')  
+      .attr('class', 'pie-group')  
+      .attr('transform', `translate(${centerX}, ${centerY})`); // 将组定位到圆心 
+     
+      // 添加一个组来容纳所有的标签  
+      const nameGroup = svg.append('g')  
+        .attr('class', 'name-group')  
+        .attr('transform', `translate(${centerX}, ${centerY})`); // 将组定位到圆心 
+
         
-      svg.append("g")  
-      .attr("transform", `translate(${marginLeft},0)`)  
-      .call(d3.axisLeft(y));          
+      // 创建标签
+      nameGroup.selectAll('.label')  
+        .data(pieLayout)  
+        .enter()  
+        .append('text')  
+        .attr('class', 'name')  
+        .attr('transform', (d) => `translate(${arc.centroid(d)})`) 
+        .text((d) => d.data.name + ': ' + `${dataWithPercentages[d.index].percentage}%`+ (`(`+d.data.value+`)`)); // 使用计算好的百分比 
+        // .text(d => d.data.name + ': ' + d.data.value); // 显示扇形的标签  
 
-      // 添加折线图路径
-      svg.append("path")    
-      .attr("d",lineGenerator(dataData)) 
-      .attr("fill", "none")    
-      .attr("stroke", '#BE8C4A')    
-      .attr("stroke-width", 3);
+      // 将饼图移动到指定的圆心位置  
+      // svg.selectAll('*').attr('transform', `translate(${centerX}, ${centerY})`);
 
-    // 添加数值标签  
-    svg.selectAll('.label')  
-      .data(dataData)  
-      .join('text')  
-      .attr('class', 'label')  
-      .attr('x', (d) => x(d.date)) // 柱形中心 x 坐标  
-      .attr('y', (d) => y(d.value) -6) // 柱形顶部稍下方  
-      .attr('dy', '0.35em') // 垂直对齐  
-      .attr('text-anchor', 'middle') // 文本水平居中  
-      .text((d) => d.value); // 显示数值 
-    }  
-  }, [svgRef, width, height, dataData]); 
+      // 绘制饼图  
+      pieGroup.selectAll('.arc')  
+        .data(pieLayout)  
+        .enter()  
+        .append('path')  
+        .attr('class', 'arc')  
+        .attr('d', arc)   
+        .attr('fill', d => color(d.data.name))
+
+        .on('mouseover',(event, d) => {  
+
+          const percentage = ((d.data.value / total) * 100).toFixed(1)
+          setIsHovering({ name: d.data.name, percentage: `${percentage}%` })
+          
+          // 设置描边为黑色  
+          d3.select(event.target)  
+          .transition()  
+          .duration(200) // 动画持续时间  
+          .attr('stroke', 'black') // 描边颜色为黑色  
+          .attr('stroke-width', 1); // 设置描边宽度 
+
+        })
+        .on('mouseout', (event, d) => {  
+          setIsHovering(null);
+
+          // 移除描边或设置回透明  
+          d3.select(event.target)  
+          .transition()  
+          .duration(200)  
+          .attr('stroke', 'none') // 没有描边或者透明  
+          .attr('stroke-width', 0); // 描边宽度为0   
+      
+        });  
+    // 监听鼠标移动事件  
+    svg.on('mousemove', (event) => {  
+      const mouse = d3.pointer(event);  
+      setHoverX(mouse[0]);  
+      setHoverY(mouse[1]); 
+       
+    });
+    // 清理函数  
+    return () => {  
+      svg.selectAll('*').remove();
+      svg.on('mousemove', null);
+      svg.on('mouseout', null);
+      svg.on('mouseover', null);
+      window.removeEventListener('resize', handleResize);
+      
+      
+    };    
+    }
+  }, [svgRef, width, height,pieData, windowSize]); // 确保当 projectData 变化时重新渲染  
   
   return (  
     
-    <svg ref={svgRef} width={width} height={height} />  
+    <div  style={{position: 'relative', textAlign:'center'}}>
+    <h3 style={{ margin:'0'}}>{title}</h3>
+    <h4 style={{ margin:'0'}}>{discription}</h4>
+    <svg  ref={svgRef} width={width} height={height}>
+    </svg>
+    {isHovering && (  
+        <div   
+          ref={tooltipRef}  
+          style={{  
+            position: 'absolute',   
+            left: `${hoverX}px`,  
+            top: `${hoverY}px`, 
+            backgroundColor: 'white',  
+            border: '1px solid black',  
+            padding: '10px',  
+            // 添加其他样式...  
+          }}  
+        > 
+          <p>{`名称: ${isHovering.name}`}</p> 
+          <p>{`百分比: ${isHovering.percentage}`}</p>  
+        </div>  
+      )} 
+
+    </div>    
   );  
 };  
   

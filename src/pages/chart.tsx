@@ -57,17 +57,17 @@ const App: React.FC = () => {
   return (
     
     <Flex gap="small" vertical >
-    <Flex > 
+    <Flex gap="small" wrap="wrap" > 
         <BandChartY title="自定义标题" discription="自定义描述" projectData={projectDateQuery.data.data}></BandChartY>
         <BandChart title="自定义标题" discription="自定义描述" projectData={projectDateQuery.data.data} /> 
     </Flex >  
-    <Flex >
+    <Flex gap="small" wrap="wrap">
     <PieChart title="自定义标题" discription="自定义描述" pieData={pieDateQuery.data.data}></PieChart>
     <LineChartCurve title="自定义标题" discription="自定义描述" Project = {lineChartCurveDateQuery.data}></LineChartCurve>
 
       
     </Flex>
-    <Flex > 
+    <Flex gap="small" wrap="wrap"> 
       <LineChart title="自定义标题" discription="自定义描述" dataData={dataDataQuery.data}></LineChart>
       <BandChartMonth title="自定义标题" discription="自定义描述" dataData={dataDataQuery.data}></BandChartMonth>
     </Flex >

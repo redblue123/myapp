@@ -117,7 +117,8 @@ svg.append("path")
   }, []); // Only run this effect once, on mount  
   
   return (  
-    <div style={{position: 'relative', width: '100%', height: '100%' ,textAlign:'center'}}>
+    // <div style={{position: 'relative', width: '100%', height: '100%' ,textAlign:'center'}}></div>
+    <div style={{textAlign:'center'}}>
     <h3 style={{ margin:'0'}}>{title}</h3>
     <h4 style={{ margin:'0'}}>{discription}</h4>
     <svg ref={svgRef} width={width} height={height} /> 
