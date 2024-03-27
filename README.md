@@ -2,6 +2,11 @@
 
 项目框架 react + umi + antd
 
+1 新建路由
+$ npx umi g page products
+Write: src/pages/products.tsx
+Write: src/pages/products.less
+
 import React, { useState} from 'react';
 
   useState 钩子来管理代码块的显示状态

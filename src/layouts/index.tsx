@@ -2,6 +2,8 @@ import * as React from 'react';
 import { ProLayout } from '@ant-design/pro-layout';
 import { Link, Outlet, useAppData, useLocation } from 'umi';  
 import SmileUrl, { ReactComponent as SvgSmile } from '../../src/assets/logo.svg'; 
+import store from '@/models/index'
+import { Provider } from 'react-redux';
 
 // 定义一个类型来匹配您的主题对象结构  
 export const theme = {  
@@ -37,28 +39,42 @@ export default function Layout() {
   const { clientRoutes } = useAppData(); // 这里先用umi的useAppDate拿到全局客户端路由clientRoutes  
   const location = useLocation();  
   return (  
-    <ProLayout  
-      route={clientRoutes[0]}  
-      location={location}  
-      title="Portal Design"  
-      logo={SmileUrl}
-      token={{ bgLayout: 'white' }} // 通过token属性修改prolayout的布局
+    <Provider store={store}>
+      <ProLayout  
+        route={clientRoutes[0]}  
+        location={location}  
+        title="Portal Design"  
+        logo={SmileUrl}
+        token={{ bgLayout: 'white' }} // 通过token属性修改prolayout的布局
 
-      menuItemRender={(menuItemProps, defaultDom) => {  
-        if (menuItemProps.isUrl || menuItemProps.children) {  
+        menuItemRender={(menuItemProps, defaultDom) => {  
+          if (menuItemProps.isUrl || menuItemProps.children) {  
+            return defaultDom;  
+          }  
+          if (menuItemProps.path && location.pathname !== menuItemProps.path) {  
+            return (  
+              <Link to={menuItemProps.path} target={menuItemProps.target}>  
+                {defaultDom}  
+              </Link>  
+            );  
+          }  
           return defaultDom;  
-        }  
-        if (menuItemProps.path && location.pathname !== menuItemProps.path) {  
-          return (  
-            <Link to={menuItemProps.path} target={menuItemProps.target}>  
-              {defaultDom}  
-            </Link>  
-          );  
-        }  
-        return defaultDom;  
-      }}  
-    >  
-      <Outlet />  
-    </ProLayout>  
+        }}  
+      >  
+        <Outlet />  
+      </ProLayout> 
+
+    </Provider>
+
+
+ 
+
+
+
+
+
+ 
+
+
   );  
 }

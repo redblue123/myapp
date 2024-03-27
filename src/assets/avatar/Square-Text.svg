@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>DataDisplay/Avatar/Light/Square-Text</title>
+    <g id="1.0组件库" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="DataDisplay-数据展示" transform="translate(-368, -314)">
+            <g id="DataDisplay/Avatar/Light/Square-Text" transform="translate(368, 314)">
+                <rect id="矩形" fill="#6C1E1E" x="0" y="0" width="32" height="32" rx="2"></rect>
+                <text id="U" font-family="PingFangSC-Medium, PingFang SC" font-size="14" font-weight="400" line-spacing="22" fill="#FFFFFF">
+                    <tspan x="11" y="20">U</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

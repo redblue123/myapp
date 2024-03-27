@@ -1,0 +1,61 @@
+{
+    "list":[
+        {
+            "rpid":"3",
+            "user":{
+              "uid":"30009527",
+              "avatar":"http://toutiao.itheima.net/resources/images/97.jpg",
+              "uname":"周杰伦"
+            },
+            "content":"哎呦，不错哦",
+            "ctime":"10-18 08:05",
+            "like":87
+          },
+          {
+            "rpid":"2",
+            "user":{
+              "uid":"92384134",
+              "avatar":"http://toutiao.itheima.net/resources/images/96.jpg",
+              "uname":"张三"
+            },
+            "content":"哎呦，不错哦asdfasdfaf",
+            "ctime":"11-18 08:05",
+            "like":90
+          },
+          {
+            "rpid":"1",
+            "user":{
+              "uid":"92384134",
+              "avatar":"http://toutiao.itheima.net/resources/images/98.jpg",
+              "uname":"李五"
+            },
+            "content":"哎呦，不错哦 哎呦，不错哦",
+            "ctime":"12-18 08:05",
+            "like":85
+          }
+    ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -36,8 +36,14 @@ export default defineConfig({
     { path: "/products", component: "products", name: "products" },
 
     { path: "/chart", component: "chart", name: "chart图表" },
+
+    { path: "/comment", component: "comment", name: "comment 评论" },
   
     { path: "/test", component: "test", name: "test 测试" },
+
+    { path: "/dataManager", component: "dataManager", name: "dataManager" },
+
+
 
   ],
   plugins: ["@umijs/plugins/dist/react-query"],

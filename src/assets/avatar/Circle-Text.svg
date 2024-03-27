@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>DataDisplay/Avatar/Light/Circle-Text</title>
+    <g id="1.0组件库" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="DataDisplay-数据展示" transform="translate(-176, -314)">
+            <g id="DataDisplay/Avatar/Light/Circle-Text" transform="translate(176, 314)">
+                <circle id="椭圆形" fill="#6C1E1E" cx="16" cy="16" r="16"></circle>
+                <text id="U" font-family="PingFangSC-Medium, PingFang SC" font-size="14" font-weight="400" line-spacing="22" fill="#FFFFFF">
+                    <tspan x="11" y="20">U</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>
