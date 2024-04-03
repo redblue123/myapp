@@ -5,6 +5,7 @@ import {decrement, increment, incrementTen,}  from "@/models/counterStore"
 import {fetchChannelList} from '@/models/channleStore'
 
 
+
 const URL = 'http://geek.itheima.net/v1_0/channels'
 const path = ['data', 'data', 'channels']
 
@@ -12,8 +13,8 @@ const path = ['data', 'data', 'channels']
 
 
 function App(){
-  const {count} = useSelector((state) => state.count)
-  const {channelList} = useSelector(state => state.channelList)
+  const {count} = useSelector((state:any) => state.count)
+  const {channelList} = useSelector((state:any) => state.channelList)
   // const channels = '.data.data.channels'
   
 
@@ -37,7 +38,7 @@ function App(){
     <button onClick={()=> dispatch(incrementTen(10))}>add to 10</button>
     <button onClick={()=> dispatch(incrementTen(20))}>add to 20</button>
     <ul>
-      {channelList.map((item)=><li key={item.id}>{item.name}</li>)}
+      {channelList.map((item:any)=><li key={item.id}>{item.name}</li>)}
     </ul>
 
 
@@ -47,5 +48,7 @@ function App(){
 }
 
 export default App; 
+
+
 
 

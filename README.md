@@ -3,7 +3,7 @@
 项目框架 react + umi + antd
 
 1 新建路由
-$ npx umi g page products
+npx umi g page products
 Write: src/pages/products.tsx
 Write: src/pages/products.less
 
@@ -221,3 +221,17 @@ const ListComponent: React.FC = () => {
 export default ListComponent;
 
 //--
+在package.json中添加一条数据 "server:levelData":"json-server mock/levelData-db.json --port 3006"
+  "scripts": {
+    "dev": "umi dev",
+    "build": "umi build",
+    "postinstall": "umi setup",
+    "setup": "umi setup",
+    "start": "npm run dev",
+    "serve": "json-server mock/db.json --port 3004",
+    "server:tableList":"json-server mock/tableList-db.json --port 3005",
+    "server:levelData":"json-server mock/levelData-db.json --port 3006"
+    
+  },
+在终端运行命令
+yarn run server:levelData

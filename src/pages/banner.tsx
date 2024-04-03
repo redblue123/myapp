@@ -2,8 +2,10 @@
 import styles from '../layouts/index.less'; 
 import { Divider, Typography,Flex,ConfigProvider,Card, Space , Tooltip,Avatar} from 'antd';
 import {theme} from '../layouts/index' //公共样式引入
-
 import '../../libs/highlight/styles/panda-syntax-light.css'; 
+
+
+
 import HomeCard from '@/components/Card/HomeCard';
 import homeicon1 from '@/assets/homeicon/homeicon1.svg'
 import homeicon2 from '@/assets/homeicon/homeicon2.svg'

@@ -8,7 +8,9 @@
     "setup": "umi setup",
     "start": "npm run dev",
     "serve": "json-server mock/db.json --port 3004",
-    "server:tableList":"json-server mock/tableList-db.json --port 3005"
+    "server:tableList":"json-server mock/tableList-db.json --port 3005",
+    "server:levelData":"json-server mock/levelData-db.json --port 3006"
+    
   },
   "dependencies": {
     "@ant-design/icons": "^5.2.6",

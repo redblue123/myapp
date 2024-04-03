@@ -1,5 +1,5 @@
 import React from 'react';  
-import { Button, Popconfirm, Table } from 'antd';  
+import { Button, Popconfirm, Table,Flex } from 'antd';  
   
 type Product = {
   id: string;
@@ -33,9 +33,12 @@ const ProductList: React.FC<ProductListProps> = ({
           
         return (
            // 使用Popconfirm组件创建一个确认框，标题为“Delete?”。当用户点击“Delete”按钮时，它会调用onDelete回调函数并传递当前记录的ID作为参数。  
-          <Popconfirm title="Delete?" onConfirm={() => onDelete(record.id)}>  
+           <Flex>
+          <Popconfirm title="确认删除" onConfirm={() => onDelete(record.id)}>  
             <Button>Delete</Button>  
           </Popconfirm>  
+           </Flex>
+          
         );  
       },  
     },  

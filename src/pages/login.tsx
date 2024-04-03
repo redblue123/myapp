@@ -1,0 +1,92 @@
+
+
+import React from 'react';
+import { Card,ConfigProvider } from 'antd';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import url from '@/assets/logo.svg'
+import {theme} from '../layouts/index' //公共样式引入
+import { Button, Flex,  Typography,Checkbox, Form, Input } from 'antd'; 
+const { Paragraph, Text, Link } = Typography
+const onFinish = (values: any) => {
+  console.log('Success:', values);
+};
+const onFinishFailed = (errorInfo: any) => {
+  console.log('Failed:', errorInfo);
+};
+type FieldType = {
+  username?: string;
+  password?: string;
+  remember?: string;
+};
+
+const { Meta } = Card;
+
+const App: React.FC = () => (
+  <ConfigProvider theme={theme}> 
+  <div style={{ height:'80vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+    <div style={{width:'100px',height: 400,backgroundColor:'rgb(245, 245, 245)'}}></div>
+    <Card 
+      style={{ width: 500,height: 400}}
+      cover={
+        <div style={{paddingTop:'20px', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+          <img style={{ width: 50 }} alt="example" src={url} />
+          <Meta style={{paddingLeft:'20px'}}  title="请登录" description="www.instagram.com" />
+        </div>
+    }
+    >
+      <Form validateTrigger="onBlur"
+      // validateTrigger="onBlur" 在失焦时完成校验逻辑
+      name="normal_login"
+      className="login-form"
+      initialValues={{ remember: true }}
+      onFinish={onFinish}
+    >
+      <Form.Item
+        name="mobile" // 与提交给后端的接口保持一致 或 name="username"
+        // rules里绑定了一个数组,它是可以绑定多个校验规则的 
+        // 数组里的对象设置了具体的校验逻辑
+        // required: true 是否是必填 
+        // 多条校验逻辑, 串型校验逻辑 第一条过了才验证第二条
+        rules={[
+          { required: true, message: '  请输入手机号!' },
+          { pattern:/^1[3-9]\d{9}$/, message:'请输入正确的手机号格式'} // 正则 1开头[3-9]的数字\d 重复9次{9} $精确匹配
+           
+        ]} 
+      >
+        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+      </Form.Item>
+      <Form.Item
+        name="code" //  password
+        rules={[{ required: true, message: '请输入验证码!' }]}
+      >
+        <Input
+          prefix={<LockOutlined className="site-form-item-icon" />}
+          type="password"
+          placeholder="Password"
+        />
+      </Form.Item>
+      <Form.Item>
+        <Form.Item name="remember" valuePropName="checked" noStyle>
+          <Checkbox>Remember me</Checkbox>
+        </Form.Item>
+
+        <a className="login-form-forgot" href="">
+          Forgot password
+        </a>
+      </Form.Item>
+
+      <Form.Item>
+        <Button type="primary" htmlType="submit" className="login-form-button">
+          Log in
+        </Button>
+        Or <a href="">register now!</a>
+      </Form.Item>
+    </Form>
+
+    </Card>
+  </div>
+  </ConfigProvider>
+
+);
+
+export default App;

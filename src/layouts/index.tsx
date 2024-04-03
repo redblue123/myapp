@@ -4,6 +4,7 @@ import { Link, Outlet, useAppData, useLocation } from 'umi';
 import SmileUrl, { ReactComponent as SvgSmile } from '../../src/assets/logo.svg'; 
 import store from '@/models/index'
 import { Provider } from 'react-redux';
+import styles from '../layouts/index.less'; 
 
 // 定义一个类型来匹配您的主题对象结构  
 export const theme = {  

@@ -4,14 +4,17 @@ import { Dispatch } from 'redux';
 
 
 
+
 const channelStore = createSlice({
     name:'channel',
 
+    // 数据状态state
     initialState:{
         channelList:[]
     },
 
     reducers:{
+        // 同步修改方法
         setChannelList(state,action){
             state.channelList = action.payload
         }
