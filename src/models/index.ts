@@ -1,9 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import countReducer from '@/models/counterStore'
-import channelReducer from '@/models/channleStore'
-
-
-
+import countReducer from '@/models/store/counterStore'
+import channelReducer from '@/models/store/channleStore'
 
 const store = configureStore({
     reducer:{

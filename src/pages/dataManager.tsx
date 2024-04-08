@@ -6,7 +6,7 @@ import type { TableProps } from 'antd';
 import {theme} from '../layouts/index' 
 import axios from 'axios';
 import styles from '../layouts/index.less';
-import {fetchChannelList} from '@/models/channleStore'
+import {fetchChannelList} from '@/models/store/channleStore'
 import { useSelector,useDispatch} from "react-redux";
 
 // 引入类型定义 
@@ -87,7 +87,7 @@ const App: React.FC = () =>{
           render={(_: any, record: DataType) => (
             <Space size="middle">
               <a style={ color}>编辑</a>
-              <a style={ color}>Delete</a>
+              <a style={ color}>删除</a>
               
             </Space>
           )}

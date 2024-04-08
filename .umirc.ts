@@ -10,7 +10,6 @@ export default defineConfig({
     { path: "/form", component: "form", name: "Form 表单" },
     { path: "/flex", component: "flex", name: "Flex 布局" },
     { path: "/button", component: "button", name: "Button 按钮" },
-    { path: "/form", component: "form", name: "Form 表单" }, 
     
     { path: "/tabs", component: "tabs", name: "Tabs 切换" }, 
 
@@ -49,7 +48,7 @@ export default defineConfig({
     
         { path: "/pagination", component: "pagination", name: "Pagination 分页" },
     
-        { path: "/form", component: "form", name: "Form 表单" }, 
+  
     
         { path: "/tabs", component: "tabs", name: "Tabs 切换" }, 
     
@@ -68,8 +67,6 @@ export default defineConfig({
         { path: "/comment", component: "comment", name: "comment 评论" },
       
         { path: "/test", component: "test", name: "test 测试" },
-    
-        { path: "/dataManager", component: "dataManager", name: "dataManager" },
     
         { path: "/login", component: "login", name: "login 登陆页" }
       ]

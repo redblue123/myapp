@@ -3,26 +3,9 @@ import {ConfigProvider, Button, Drawer, Radio, Space , Flex, Tree} from 'antd';
 import type { DrawerProps, RadioChangeEvent,TreeDataNode } from 'antd';
 import {theme} from '../layouts/index' //公共样式引入
 import styles from '../layouts/index.less'; 
-import axios from 'axios';
-import {fetchChannelList} from '@/models/channleStore'
+import {fetchChannelList} from '@/models/store/channleStore'
 import { useSelector,useDispatch} from "react-redux";
 import { TreeNode } from '@/types';
-import {DataNode} from '@/types'
-
-
-interface RootState {  
-  channelList: Channel[]; 
-  // ... 其他状态字段  
-}  
-  
-interface Channel {  
-  key: React.Key;  
-  title: React.ReactNode;  
-  // ... 其他属性  
-  children?: DataNode[];  
-  
-  // ... 其他通道字段  
-}
 
 
 const DataURL = 'http://localhost:3006/treeData'
@@ -33,7 +16,7 @@ const App: React.FC = () => {
   const [rowColumn,setRowColumn] = useState('row');
   const [displayMode, setDisplayMode] = useState('include');
   const [dataSelect, setDataSelect] = useState(null);
-  const [maxLevel, setMaxLevel] = useState(1); // 假设至少有一层
+  const [maxLevel, setMaxLevel] = useState(1); //存层级状态 假设至少有一层
 
   // 递归函数，用于找出树的最大层级  
   const getMaxLevel = (data:TreeNode[], currentLevel = 1) => {  
@@ -46,8 +29,6 @@ const App: React.FC = () => {
     });  
     return max;  
   }; 
-
-
 
 
   // 下面是树筛选的状态存储
@@ -78,21 +59,6 @@ const App: React.FC = () => {
     console.log('radio checked', e.target.value);
     setDisplayMode(e.target.value);
   };
-
-  // // 获取第一层级的key 数组
-  // const getLevelOneKeys = (data) =>{
-  //   return data.map(item => item.key)
-  // }
-
-  // // 获取第二层级的 key 数组  
-  // const getLevelTwoKeys = (data) => {  
-  //   return data.reduce((keys, item) => {  
-  //     if (item.children) {  
-  //       return [...keys, ...item.children.map(child => child.key)];  
-  //     }  
-  //     return keys;  
-  //   }, []);  
-  // };  
 
     // 递归函数，用于获取指定层级的所有 key  
     const getKeysAtLevel = (data:TreeNode[], level:number) => {  
@@ -130,7 +96,8 @@ const App: React.FC = () => {
     // 在组件加载时计算最大层级  
     useEffect(() => {  
       const level = getMaxLevel(channelList);  
-      setMaxLevel(level);  
+      
+      setMaxLevel(level);   
     }, [channelList]); // 如果 treeData 会变化，那么应当作为依赖项  
     
     // 根据最大层级动态渲染 Radio 按钮  
@@ -145,8 +112,6 @@ const App: React.FC = () => {
       }  
       return radios;  
     }; 
-
-
 
   const onClose = () => {
     setOpen(false);
@@ -227,13 +192,10 @@ const App: React.FC = () => {
         <p>数据选择:</p>
         <Radio.Group value={dataSelect} onChange={onChangeDataSelect} >
         {renderRadioButtons()}
-          {/* <Radio value="level1">全选一级</Radio>
-          <Radio value="level2">全选二级</Radio>
-          <Radio value="level3">全选三级</Radio> */}
         </Radio.Group>
         </Flex >
-        <Flex gap="small" wrap="wrap" align='center' className={styles.flexborder} > 
-            <Tree
+
+            <Tree className={styles.flexborder}
           checkable
           checkStrictly
           onExpand={onExpand}
@@ -244,8 +206,10 @@ const App: React.FC = () => {
           onSelect={onSelect}
           selectedKeys={selectedKeys}
           treeData={channelList}
+          height={400}
+
         />
-        </Flex >
+
 
       </Drawer>
     </ConfigProvider>
