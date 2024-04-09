@@ -21,7 +21,7 @@ function App(){
   const dispatch = useDispatch();
     useEffect(()=>{
       dispatch(fetchChannelList(URL,path))
-      console.log(channelList)
+      // console.log(channelList)
       
     },[dispatch])
 

@@ -1,10 +1,10 @@
 import React from 'react';
-import styles from './n.less';
+import styles from './modules.less';
 
 export default function Page() {
   return (
     <div>
-      <h1 className={styles.title}>Page n</h1>
+      <h1 className={styles.title}>Page modules</h1>
     </div>
   );
 }

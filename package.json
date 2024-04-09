@@ -8,9 +8,9 @@
     "setup": "umi setup",
     "start": "npm run dev",
     "serve": "json-server mock/db.json --port 3004",
-    "server:tableList":"json-server mock/tableList-db.json --port 3005",
-    "server:levelData":"json-server mock/levelData-db.json --port 3006"
-    
+    "server:tableList": "json-server mock/tableList-db.json --port 3005",
+    "server:levelData": "json-server mock/levelData-db.json --port 3006",
+    "server:selectList": "json-server mock/dataApi/selectList.json --port 3007"
   },
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
@@ -32,6 +32,7 @@
     "lodash": "^4.17.21",
     "react-draggable": "^4.4.6",
     "react-query": "^3.39.3",
+    "react-quill": "2.0.0-beta.2",
     "react-redux": "^9.1.0",
     "react-router-dom": "^6.21.2",
     "umi": "^4.0.90",

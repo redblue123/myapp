@@ -62,7 +62,9 @@ export default function Layout() {
           return defaultDom;  
         }}  
       >  
-        <Outlet />  
+        <div style={{ padding: 20 }}> 
+          <Outlet/> 
+        </div> 
       </ProLayout> 
 
     </Provider>

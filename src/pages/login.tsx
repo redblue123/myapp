@@ -77,9 +77,11 @@ const App: React.FC = () => (
 
       <Form.Item>
         <Button type="primary" htmlType="submit" className="login-form-button">
-          Log in
+          登录
         </Button>
+        
         Or <a href="">register now!</a>
+        
       </Form.Item>
     </Form>
 
