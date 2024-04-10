@@ -1,8 +1,8 @@
 
 import { useEffect } from "react";
 import { useSelector,useDispatch} from "react-redux";
-import {decrement, increment, incrementTen,}  from "@/models/store/counterStore"
-import {fetchChannelList} from '@/models/store/channleStore'
+import {decrement, increment, incrementTen,}  from "@/store/counterStore"
+import {fetchChannelList} from '@/store/channleStore'
 
 
 

@@ -47,8 +47,6 @@ export default defineConfig({
         { path: "modules/chart", component: "chart", name: "chart图表" },
 
       ],
-
-    
      },
 
     { path: "/dataManager", component: "dataManager", name: "dataManager" },
@@ -57,7 +55,7 @@ export default defineConfig({
 
     { path: "/publish", component: "publish", name: "publish 发布页" },
 
-    { path: "/login", component: "login", name: "login 登陆页" },
+    { path: "/login", component: "login", name: "login 登陆页"},
 
 
   ],

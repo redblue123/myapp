@@ -10,7 +10,8 @@
     "serve": "json-server mock/db.json --port 3004",
     "server:tableList": "json-server mock/tableList-db.json --port 3005",
     "server:levelData": "json-server mock/levelData-db.json --port 3006",
-    "server:selectList": "json-server mock/dataApi/selectList.json --port 3007"
+    "server:selectList": "json-server mock/dataApi/selectList.json --port 3007",
+    "server:userList": "json-server mock/dataApi/userList.json --port 3008"
   },
   "dependencies": {
     "@ant-design/icons": "^5.2.6",

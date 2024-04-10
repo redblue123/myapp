@@ -1,18 +1,18 @@
 
 
 import React from 'react';
-import { Card,ConfigProvider } from 'antd';
+import { Card,ConfigProvider, message } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import url from '@/assets/logo.svg'
 import {theme} from '../layouts/index' //公共样式引入
 import { Button, Flex,  Typography,Checkbox, Form, Input } from 'antd'; 
+import { UseDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { fetchLogin } from '@/store/modules/user';
+import { useNavigate } from 'react-router-dom'
+
 const { Paragraph, Text, Link } = Typography
-const onFinish = (values: any) => {
-  console.log('Success:', values);
-};
-const onFinishFailed = (errorInfo: any) => {
-  console.log('Failed:', errorInfo);
-};
+
 type FieldType = {
   username?: string;
   password?: string;
@@ -21,7 +21,26 @@ type FieldType = {
 
 const { Meta } = Card;
 
-const App: React.FC = () => (
+const App: React.FC = () => {
+  // 得到一个useNavigate()跳转函数
+  const navigate = useNavigate()
+  const dispatch = useDispatch();
+
+  const onFinish =async (values: any) => {
+    console.log('Success:', values);
+    // 触发异步action fetchLogin
+    await dispatch(fetchLogin(values))  
+    // 1. 跳转到首页
+    navigate('/')
+    // 2. 提示一下用户   
+    // message.success('登录成功')
+  };
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  
+  };
+  return(
+
   <ConfigProvider theme={theme}> 
   <div style={{ height:'80vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
     <div style={{width:'100px',height: 400,backgroundColor:'rgb(245, 245, 245)'}}></div>
@@ -39,7 +58,7 @@ const App: React.FC = () => (
       name="normal_login"
       className="login-form"
       initialValues={{ remember: true }}
-      onFinish={onFinish}
+      onFinish={onFinish }
     >
       <Form.Item
         name="mobile" // 与提交给后端的接口保持一致 或 name="username"
@@ -88,7 +107,10 @@ const App: React.FC = () => (
     </Card>
   </div>
   </ConfigProvider>
+  )
+};
 
-);
+
+
 
 export default App;

@@ -1,0 +1,1 @@
+store -> redux状态管理工具

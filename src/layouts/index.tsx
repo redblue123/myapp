@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ProLayout } from '@ant-design/pro-layout';
 import { Link, Outlet, useAppData, useLocation } from 'umi';  
 import SmileUrl, { ReactComponent as SvgSmile } from '../../src/assets/logo.svg'; 
-import store from '@/models/index'
+import store from '@/store'
 import { Provider } from 'react-redux';
 import styles from '../layouts/index.less'; 
 

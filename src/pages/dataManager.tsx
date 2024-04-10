@@ -10,8 +10,8 @@ import type { TableProps, RadioChangeEvent } from 'antd';
 import {theme} from '../layouts/index' 
 import axios from 'axios';
 import styles from '../layouts/index.less';
-import {fetchChannelList} from '@/models/store/channleStore'
-import { fetchSelectList } from '@/models/store/selectStore';
+import {fetchChannelList} from '@/store/channleStore'
+import { fetchSelectList } from '@/store/selectStore';
 import { useSelector,useDispatch} from "react-redux";
 
 // 引入类型定义 
