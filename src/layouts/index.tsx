@@ -5,6 +5,9 @@ import SmileUrl, { ReactComponent as SvgSmile } from '../../src/assets/logo.svg'
 import store from '@/store'
 import { Provider } from 'react-redux';
 import styles from '../layouts/index.less'; 
+// 测试token 是否成功注入
+import {request} from "@/utils"
+import { useEffect } from 'react';
 
 // 定义一个类型来匹配您的主题对象结构  
 export const theme = {  
@@ -30,13 +33,16 @@ export const theme = {
     
 };
 
- // 可以通过 import { Settings } from '@ant-design/pro-layout/defaultSettings'
+// 可以通过 import { Settings } from '@ant-design/pro-layout/defaultSettings'
 // 来获取这个类型
 
 // 定义并导出您的布局组件  
 export default function Layout() { 
-
-    
+  // 测试token 是否成功注入
+  // useEffect(()=>{
+  //   request.get('/user/profile')
+  // },[])
+     
   const { clientRoutes } = useAppData(); // 这里先用umi的useAppDate拿到全局客户端路由clientRoutes  
   const location = useLocation();  
   return (  
@@ -68,15 +74,6 @@ export default function Layout() {
       </ProLayout> 
 
     </Provider>
-
-
- 
-
-
-
-
-
- 
 
 
   );  

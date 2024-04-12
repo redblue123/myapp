@@ -1,10 +1,7 @@
-/* npx umi g page tabs
-src/pages/tabs.tsx
-src/pages/tabs.less */
-
 import { defineConfig } from "umi";
 
 export default defineConfig({
+
   routes: [
     { path: "/", component: "index", name: "home 首页" },
 
@@ -47,6 +44,8 @@ export default defineConfig({
         { path: "modules/chart", component: "chart", name: "chart图表" },
 
       ],
+
+    
      },
 
     { path: "/dataManager", component: "dataManager", name: "dataManager" },
@@ -55,7 +54,7 @@ export default defineConfig({
 
     { path: "/publish", component: "publish", name: "publish 发布页" },
 
-    { path: "/login", component: "login", name: "login 登陆页"},
+    { path: "/login", component: "login", name: "login 登陆页" },
 
 
   ],

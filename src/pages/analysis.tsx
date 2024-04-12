@@ -11,7 +11,7 @@ import { TreeNode } from '@/types';
 const DataURL = 'http://localhost:3006/treeData'
 const path = ['data']
 
-const App: React.FC = () => {
+const Analysis: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [rowColumn,setRowColumn] = useState('row');
   const [displayMode, setDisplayMode] = useState('include');
@@ -216,4 +216,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default Analysis;
