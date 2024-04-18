@@ -3,7 +3,7 @@ import {ConfigProvider, Button, Drawer, Radio, Space , Flex, Tree} from 'antd';
 import type { DrawerProps, RadioChangeEvent,TreeDataNode } from 'antd';
 import {theme} from '../layouts' //公共样式引入
 import styles from '../layouts/index.less'; 
-import {fetchChannelList} from '@/store/channleStore'
+import {fetchChannelList} from '@/models/store/modules/channleStore'
 import { useSelector,useDispatch} from "react-redux";
 import { TreeNode } from '@/types';
 

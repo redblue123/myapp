@@ -1,10 +1,10 @@
 // 所有状态管理的中转
 
 import { configureStore } from "@reduxjs/toolkit";
-import countReducer from '@/store/counterStore'
-import channelReducer from '@/store/channleStore'
-import selectReducer from '@/store/selectStore'
-import userReducer from '@/store/modules/user'
+import countReducer from '@/models/store/modules/counterStore'
+import channelReducer from '@/models/store/modules/channleStore'
+import selectReducer from '@/models/store/selectStore'
+import userReducer from '@/models/userModel'
 
 const store = configureStore({
     reducer:{

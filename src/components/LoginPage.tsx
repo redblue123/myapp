@@ -7,7 +7,7 @@ import url from '@/assets/logo.svg'
 import {theme} from '../layouts' //公共样式引入
 import { Button, Flex,  Typography,Checkbox, Form, Input } from 'antd'; 
 import { useDispatch } from 'react-redux';
-import { fetchLogin } from '@/store/modules/user';
+import { fetchLogin } from '@/models/userModel';
 import { useNavigate } from 'react-router-dom'
 
 

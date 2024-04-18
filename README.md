@@ -7,6 +7,10 @@ npx umi g page products
 Write: src/pages/products.tsx
 Write: src/pages/products.less
 
+npx umi g page testPage
+src/pages/testPage/index.tsx
+src/pages/testPage/index.less
+
 import React, { useState} from 'react';
 
   useState 钩子来管理代码块的显示状态

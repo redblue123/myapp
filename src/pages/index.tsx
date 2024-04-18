@@ -1,7 +1,7 @@
 import styles from '../layouts/index.less'; 
 import React from 'react';
 import { Divider, Typography,Flex,ConfigProvider,Card } from 'antd';
-import {theme} from '../layouts' //公共样式引入
+import {theme} from '@/layouts' //公共样式引入
 import HomeCard from '@/components/Card/HomeCard';
 // import { useHistory } from 'react-router-dom'; 
 

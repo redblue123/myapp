@@ -5,7 +5,7 @@ import {theme} from '../layouts' //公共样式引入
 import React, { useState, useEffect , createContext} from 'react';
 import hljs from '../../libs/highlight/highlight.js';  
 import '../../libs/highlight/styles/panda-syntax-light.css'; 
-import { fetchSelectList } from '@/store/selectStore';
+import { fetchSelectList } from '@/models/store/selectStore';
 import { useSelector,useDispatch} from "react-redux";
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'

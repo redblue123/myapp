@@ -1,22 +1,23 @@
-import * as React from 'react';  
 import { ProLayout } from '@ant-design/pro-layout';
-import { ConfigProvider, Breadcrumb, Button, Layout, Menu, Flex} from 'antd';
-import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
-const { Header, Content, Sider, Footer} = Layout;
+import { ConfigProvider, Breadcrumb, Button, Menu, Flex} from 'antd';
 import type { MenuProps } from 'antd';
 import { Link, Outlet, useAppData, useLocation  } from 'umi'; 
-import SmileUrl, { ReactComponent as SvgSmile } from '../../src/assets/logo.svg'; 
+// import SmileUrl, { ReactComponent as SvgSmile } from '../../src/assets/logo.svg'; 
+import SmileUrl from '../../src/assets/logo.svg'; 
 import { removeToken } from '@/utils';
   
-import store from '@/store'
+import store from '@/models/store'
 import { Provider } from 'react-redux';
+
 import styles from '../layouts/index.less'; 
 // 测试token 是否成功注入
 import {request} from "@/utils"
-import { useEffect } from 'react';
+import { useEffect} from 'react';
 import { useNavigate} from 'react-router-dom';
 import {useAuth} from '@/utils/useAuth'
 import LoinPage from '@/components/LoginPage';
+import { useDispatch } from 'react-redux';
+import {fetchUserInfo} from '@/models/userModel'
 // 定义一个类型来匹配您的主题对象结构  
 export const theme = {  
   token: {
@@ -48,7 +49,7 @@ export const theme = {
 
 
 
-export default function _Layout() { 
+export default function Layout() { 
 
 
   // 测试token 是否成功注入
@@ -65,6 +66,11 @@ export default function _Layout() {
     navigate('/login'); 
   }
 
+  // const dispatch = useDispatch();
+  // useEffect(()=>{
+  //   dispatch(fetchUserInfo())
+  
+  // },[dispatch])
 
  
 useEffect(()=>{
@@ -75,28 +81,43 @@ useEffect(()=>{
 
   // 如果当前路径是登录页面，则直接渲染登录页面组件  
 if (location.pathname === '/login') {  
-  return (  
-    <Provider store={store}> 
 
+  return (  
       <LoinPage></LoinPage> 
-    </Provider>  
   );  
-} 
+}
+ 
 
  if(isAuthenticated) {
+
   return (  
-    
     <Provider store={store}>
       <ConfigProvider theme={theme}>
       
       <ProLayout  
+        layout={"mix"}
+
         route={clientRoutes[0]}  
         location={location}  
         title="Portal Design"  
         logo={SmileUrl}
+        // loading={true}
+        // pure={true} 
         token={{ bgLayout: 'white' }} // 通过token属性修改prolayout的布局
+        headerRender={()=>
+          <div className={styles.headerContent}>
+            
+            <div style={{display: 'flex', alignItems: 'center', width: '200px'}}>
+            <span style={{display:'flex'}}>
+            <img src={SmileUrl} alt="carousel" />
+            </span>
+            <h2 style={{marginLeft:'12px'}}>Portal Design</h2>
+            </div>
+            <Button  onClick={removeTokenHandle } >退出登录</Button> 
+          </div>
+      }
+        menuItemRender={(menuItemProps, defaultDom,) => {  
 
-        menuItemRender={(menuItemProps, defaultDom) => {  
           if (menuItemProps.isUrl || menuItemProps.children) {  
             return defaultDom;  
           }  
@@ -109,17 +130,15 @@ if (location.pathname === '/login') {
           }  
           return defaultDom;  
           }}  
-      >
-        <Flex justify='flex-end'>
-        <Button onClick={removeTokenHandle} >退出登录</Button> 
-        </Flex>
-         
+      >           
         <div style={{ padding: 20 }}> 
           <Outlet/> 
         </div> 
       </ProLayout> 
       </ConfigProvider>
+
     </Provider>
+    
 
 
   );

@@ -8,10 +8,11 @@ const userStore = createSlice({
     initialState:{
         // 能取到就用localStorage中的token_key, 没有再取空串
         token:getToken()||'',
+        userInfo:{}
     },
     // 同步修改方法
     reducers:{
-        setToken(state,action){
+        setToken(state, action){
             // 存一份在store中(既可以存到redux)
             state.token = action.payload
             // 存一份在localstorage中(也可以存到本地)
@@ -20,18 +21,22 @@ const userStore = createSlice({
             // 单独封装了一个token相关的方法
             _setToken(action.payload)
 
+        },
+        setUserInfo(state, action){
+            state.token = action.payload
         }
+
     }
 })
 
 // 解构actionCreater
-const {setToken} = userStore.actions;
+const {setToken, setUserInfo} = userStore.actions;
 
 // 获取reducer函数
 
 const userReducer = userStore.reducer;
 
-// 异步方法 完成登录获取token 
+// 异步方法封装 完成登录获取token 
 // loginForm 提交的表单数据
 
 const fetchLogin =  (loginForm:any)=>{
@@ -43,6 +48,17 @@ const fetchLogin =  (loginForm:any)=>{
     }
 }
 
-export {fetchLogin, setToken}
+// 获取个人拥护信息 异步方法封装
+const fetchUserInfo =  ()=>{
+    return async(dispatch:any)=>{
+       const res = await request.get('/user/profile')
+       // 状态存入
+       dispatch(setUserInfo(res.data))
+
+        
+    }
+}
+
+export {fetchLogin, setToken, fetchUserInfo,  setUserInfo}
 
 export default userReducer;

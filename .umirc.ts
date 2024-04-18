@@ -5,6 +5,8 @@ src/pages/tabs.less */
 import { defineConfig } from "umi";
 
 export default defineConfig({
+  
+
   routes: [
     { path: "/", component: "index", name: "home 首页" },
 
@@ -45,7 +47,6 @@ export default defineConfig({
       name: "modules 模块页面",
       routes:[
         { path: "modules/chart", component: "chart", name: "chart图表" },
-
       ],
 
 
